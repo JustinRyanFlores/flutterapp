@@ -11,7 +11,7 @@ class Message extends StatelessWidget {
       color: Colors.blue,
       child: const Center(
         child: Text(
-          'Hello!',
+          'Hello Je!',
           style: TextStyle(color: Colors.white),
         ),
       ),
