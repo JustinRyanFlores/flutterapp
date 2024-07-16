@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:test_dev/Cart.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -15,6 +18,12 @@ class Home extends StatelessWidget {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(5),
+                      topRight: Radius.circular(5),
+                      bottomLeft: Radius.circular(5),
+                      bottomRight: Radius.circular(5),
+                    ),
                     color: Colors.white,
                   ),
                   child: Row(
@@ -45,11 +54,14 @@ class Home extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-                color: Colors.white,
+              icon:
+                  const Icon(Icons.shopping_cart_outlined, color: Colors.white),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        Cart()), // Replace CartPage with your actual cart page widget
               ),
-              onPressed: () => {},
             ),
             IconButton(
               icon: const Icon(
@@ -151,7 +163,7 @@ class Home extends StatelessWidget {
               padding: EdgeInsets.only(top: 20, left: 10, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -173,7 +185,7 @@ class Home extends StatelessWidget {
               height: 250,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: [
+                children: const [
                   ItemCard(
                     imagePath: 'trimrib.png',
                     title: 'HUU Trim Rib',

@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, use_key_in_widget_constructors, use_super_parameters
 import 'package:flutter/material.dart';
-import 'cart.dart';
+import 'Cart.dart';
 import 'home.dart';
 import 'message.dart';
 import 'notification.dart';
@@ -27,37 +27,36 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Simulate loading delay
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        fixedColor: Colors.black,
-        items: const [
-          BottomNavigationBarItem(
-            label: "Home",
-            icon: Icon(Icons.home_outlined, color: Colors.black),
-          ),
-          BottomNavigationBarItem(
-            label: "Message",
-            icon: Icon(Icons.message_outlined, color: Colors.black),
-          ),
-          BottomNavigationBarItem(
-            label: "Notification",
-            icon: Icon(Icons.notifications_none, color: Colors.black),
-          ),
-          BottomNavigationBarItem(
-            label: "Me",
-            icon: Icon(Icons.person_outline, color: Colors.black),
-          ),
-        ],
-        onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+      body: isLoading ? _buildLoadingScreen() : _buildBody(),
+      bottomNavigationBar: isLoading ? null : _buildBottomNavigationBar(),
+    );
+  }
+
+  Widget _buildLoadingScreen() {
+    return Container(
+      color: const Color.fromARGB(255, 19, 13, 0),
+      child: Center(
+        child: SizedBox(
+          width: 300,
+          height: 300,
+          child: Image.asset('loading.png'),
+        ),
       ),
     );
   }
@@ -70,12 +69,43 @@ class _MyHomePageState extends State<MyHomePage> {
         MessageTab(),
         NotificationTab(),
         ProfileTab(),
+        CartPage(),
       ],
+    );
+  }
+
+  BottomNavigationBar _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      currentIndex: _currentIndex,
+      fixedColor: Colors.black,
+      items: const [
+        BottomNavigationBarItem(
+          label: "Home",
+          icon: Icon(Icons.home_outlined, color: Colors.black),
+        ),
+        BottomNavigationBarItem(
+          label: "Message",
+          icon: Icon(Icons.message_outlined, color: Colors.black),
+        ),
+        BottomNavigationBarItem(
+          label: "Notification",
+          icon: Icon(Icons.notifications_none, color: Colors.black),
+        ),
+        BottomNavigationBarItem(
+          label: "Me",
+          icon: Icon(Icons.person_outline, color: Colors.black),
+        ),
+      ],
+      onTap: (int index) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
     );
   }
 }
 
-//Home Tab
+// Home Tab
 class Hometab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -87,7 +117,7 @@ class Hometab extends StatelessWidget {
   }
 }
 
-//Message Tab
+// Message Tab
 class MessageTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -99,7 +129,7 @@ class MessageTab extends StatelessWidget {
   }
 }
 
-//Notification Tab
+// Notification Tab
 class NotificationTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -111,7 +141,7 @@ class NotificationTab extends StatelessWidget {
   }
 }
 
-//Profile Tab
+// Profile Tab
 class ProfileTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -123,7 +153,7 @@ class ProfileTab extends StatelessWidget {
   }
 }
 
-//Profile Tab
+// Cart Tab
 class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
