@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'pages/my_purchases.dart';
 import 'pages/my_profile.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  const Profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +95,7 @@ class Profile extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Profile
               Container(
@@ -169,14 +171,14 @@ class Profile extends StatelessWidget {
               // My Purchases
               Container(
                 decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: Colors.white,
                   border: Border(
                     bottom: BorderSide(
                       color: Colors.grey,
                       width: 0.5,
                     ),
                     top: BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0),
+                      color: Colors.black,
                       width: 0.5,
                     ),
                   ),
@@ -197,7 +199,7 @@ class Profile extends StatelessWidget {
                       const Text(
                         'My Purchases',
                         style: TextStyle(
-                          color: Color.fromARGB(179, 0, 0, 0),
+                          color: Colors.black,
                           fontSize: 14.0,
                         ),
                       ),
@@ -308,7 +310,7 @@ class Profile extends StatelessWidget {
               // My Wallet
               Container(
                 decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: Colors.white,
                   border: Border(
                     top: BorderSide(
                       color: Colors.grey,
@@ -336,7 +338,7 @@ class Profile extends StatelessWidget {
                       const Text(
                         'My Wallet',
                         style: TextStyle(
-                          color: Color.fromARGB(179, 0, 0, 0),
+                          color: Colors.black,
                           fontSize: 14.0,
                         ),
                       ),
@@ -366,7 +368,8 @@ class Profile extends StatelessWidget {
                                 Text(
                                   '₱ 3023.22',
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 105, 83, 42),
+                                    color:
+                                        const Color.fromARGB(255, 105, 83, 42),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -397,7 +400,8 @@ class Profile extends StatelessWidget {
                                 Text(
                                   'Add Funds!',
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 105, 83, 42),
+                                    color:
+                                        const Color.fromARGB(255, 105, 83, 42),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -429,7 +433,8 @@ class Profile extends StatelessWidget {
                                     Text(
                                       '₱ 4563.12',
                                       style: TextStyle(
-                                        color: Color.fromARGB(255, 105, 83, 42),
+                                        color: const Color.fromARGB(
+                                            255, 105, 83, 42),
                                         fontSize: 14.0,
                                       ),
                                     ),
@@ -461,7 +466,8 @@ class Profile extends StatelessWidget {
                                 Text(
                                   '37 Vouchers',
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 105, 83, 42),
+                                    color:
+                                        const Color.fromARGB(255, 105, 83, 42),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -475,11 +481,79 @@ class Profile extends StatelessWidget {
                 ),
               ),
               // Activities (Custom Grid View)
-              Container(),
+
+              Container(
+                padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 8.0,
+                    crossAxisSpacing: 8.0,
+                    childAspectRatio: 1.0,
+                  ),
+                  itemCount: activityNames.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        // Navigate to the designated page or perform action based on activity name
+                        navigateToActivityPage(activityNames[index]);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: Center(
+                          child: Text(
+                            activityNames[index],
+                            textAlign:
+                                TextAlign.center, // Aligns text to the center
+                            // ignore: prefer_const_constructors
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.black, // Example text color
+                              fontWeight:
+                                  FontWeight.bold, // Example font weight
+                              fontStyle: FontStyle.italic, // Example font style
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+List<String> activityNames = [
+  'Favorites',
+  'Recently Viewed',
+  'Buy Again',
+  'Rewards',
+  'Customer Support',
+];
+
+// Activity Page Navigation
+void navigateToActivityPage(String activityName) {
+  // Perform navigation or action based on activity name
+  switch (activityName) {
+    case 'Activity 1':
+      // Navigate to Activity 1 page or perform corresponding action
+      break;
+    case 'Activity 2':
+      // Navigate to Activity 2 page or perform corresponding action
+      break;
+    // Add cases for other activities as needed
+    default:
+      break;
   }
 }
