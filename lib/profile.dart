@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:test_dev/message.dart';
 import 'pages/my_purchases.dart';
 import 'pages/my_profile.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:test_dev/Cart.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -70,25 +72,24 @@ class Profile extends StatelessWidget {
                 onPressed: () => {},
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 70.0, top: 8.0),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.shopping_cart_outlined,
-                  color: Colors.white,
-                ),
-                onPressed: () => {},
+            IconButton(
+              icon:
+                  const Icon(Icons.shopping_cart_outlined, color: Colors.white),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        Cart()), 
               ),
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.only(bottom: 70.0, right: 5.0, top: 8.0),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.chat_outlined,
-                  color: Colors.white,
-                ),
-                onPressed: () => {},
+           IconButton(
+              icon:
+                  const Icon(Icons.message_outlined, color: Colors.white),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        Message()), 
               ),
             ),
           ],
@@ -100,7 +101,7 @@ class Profile extends StatelessWidget {
               // Profile
               Container(
                 color: const Color.fromARGB(255, 19, 13, 0),
-                padding: const EdgeInsets.only(top: 60.0, bottom: 20.0),
+                padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
                 child: Column(
                   children: [
                     GestureDetector(
@@ -136,7 +137,7 @@ class Profile extends StatelessWidget {
                                   'User_Sample_Name',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 20.0,
+                                    fontSize: 15.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -147,7 +148,7 @@ class Profile extends StatelessWidget {
                                     '3 Followers',
                                     style: TextStyle(
                                       color: Colors.white70,
-                                      fontSize: 14.0,
+                                      fontSize: 10.0,
                                     ),
                                   ),
                                   SizedBox(width: 10),
@@ -155,7 +156,7 @@ class Profile extends StatelessWidget {
                                     '28 Following',
                                     style: TextStyle(
                                       color: Colors.white70,
-                                      fontSize: 14.0,
+                                      fontSize: 10.0,
                                     ),
                                   ),
                                 ],

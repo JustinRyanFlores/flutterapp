@@ -18,12 +18,7 @@ class Home extends StatelessWidget {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(5),
-                      topRight: Radius.circular(5),
-                      bottomLeft: Radius.circular(5),
-                      bottomRight: Radius.circular(5),
-                    ),
+                   borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.white,
                   ),
                   child: Row(

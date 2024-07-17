@@ -81,15 +81,15 @@ class _CartState extends State<Cart> {
                         ...entry.value.map((item) => Dismissible(
                               key: Key(item.productName),
                               background: Container(
+                                padding: const EdgeInsets.all(33.0),
                                 color: Colors.orange,
                                 child: const ListTile(
                                   leading: Icon(Icons.find_in_page,
                                       color: Colors.white),
-                                  trailing: Icon(Icons.more_vert,
-                                      color: Colors.white),
                                 ),
                               ),
                               secondaryBackground: Container(
+                                padding: const EdgeInsets.all(33.0),
                                 color: Colors.red,
                                 child: const ListTile(
                                   trailing:
@@ -312,7 +312,7 @@ class CartItem extends StatelessWidget {
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(5.0),
             child: Image.asset(
               item.productImage,
               width: 100,
