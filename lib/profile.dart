@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:test_dev/message.dart';
+
+import 'message.dart';
+import 'pages/wallet/mywallet.dart';
+import 'pages/wallet/credit.dart';
 import 'pages/my_purchases.dart';
 import 'pages/my_profile.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:test_dev/Cart.dart';
+import 'cart.dart';
+import 'pages/wallet/vouchers.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -77,19 +80,14 @@ class Profile extends StatelessWidget {
                   const Icon(Icons.shopping_cart_outlined, color: Colors.white),
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        Cart()), 
+                MaterialPageRoute(builder: (context) => Cart()),
               ),
             ),
-           IconButton(
-              icon:
-                  const Icon(Icons.message_outlined, color: Colors.white),
+            IconButton(
+              icon: const Icon(Icons.message_outlined, color: Colors.white),
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        Message()), 
+                MaterialPageRoute(builder: (context) => Message()),
               ),
             ),
           ],
@@ -352,7 +350,7 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) => Wallet()),
                               );
                             },
                             child: const Column(
@@ -383,7 +381,9 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                  builder: (context) =>
+                                      Wallet(showCashInDialog: true),
+                                ),
                               );
                             },
                             child: const Column(
@@ -401,8 +401,7 @@ class Profile extends StatelessWidget {
                                 Text(
                                   'Add Funds!',
                                   style: TextStyle(
-                                    color:
-                                        const Color.fromARGB(255, 105, 83, 42),
+                                    color: Color.fromARGB(255, 105, 83, 42),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -415,7 +414,7 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) => Credit()),
                               );
                             },
                             child: const Column(
@@ -450,7 +449,7 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) => VoucherPage()),
                               );
                             },
                             child: const Column(
