@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:test_dev/message.dart';
+
+import 'message.dart';
+import 'pages/wallet/mywallet.dart';
+import 'pages/wallet/credit.dart';
 import 'pages/my_purchases.dart';
 import 'pages/my_profile.dart';
 import 'pages/cart.dart';
+import 'pages/wallet/vouchers.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -349,7 +353,7 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) => Wallet()),
                               );
                             },
                             child: const Column(
@@ -379,7 +383,9 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                  builder: (context) =>
+                                      Wallet(showCashInDialog: true),
+                                ),
                               );
                             },
                             child: const Column(
@@ -410,7 +416,7 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) => Credit()),
                               );
                             },
                             child: const Column(
@@ -444,7 +450,7 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) => VoucherPage()),
                               );
                             },
                             child: const Column(
