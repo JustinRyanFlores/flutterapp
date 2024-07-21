@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:test_dev/pages/check_out.dart';
+
+void main() {
+  runApp(const MaterialApp(
+    home: Cart(),
+  ));
+}
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
@@ -15,20 +22,27 @@ class _CartState extends State<Cart> {
       productName: 'HUU Trim Rib',
       productPrice: '₱ 251',
       productImage: 'ceilingtype.jpg',
+      variations: ['Corrugated', 'Rib Type', 'Trim Rib'],
+      variationImages: ['corrugated.png', 'ribtype.png', 'ceilingtype.jpg'],
+      selectedVariation: 'Trim Rib',
     ),
     CartItemData(
       storeName: 'HUU',
       productName: 'HUU Corrugated',
       productPrice: '₱1,398',
       productImage: 'corrugated.png',
-      addOnDeals: [''],
+      variations: ['Corrugated', 'Rib Type', 'Trim Rib'],
+      variationImages: ['corrugated.png', 'ribtype.png', 'ceilingtype.jpg'],
+      selectedVariation: 'Corrugated',
     ),
     CartItemData(
       storeName: 'Carpasteel',
       productName: 'Carpasteel Ribtype',
       productPrice: '₱1,998',
       productImage: 'ribtype.png',
-      addOnDeals: [''],
+      variations: ['Corrugated', 'Rib Type', 'Trim Rib'],
+      variationImages: ['corrugated.png', 'ribtype.png', 'ceilingtype.jpg'],
+      selectedVariation: '50ml bottle',
     ),
   ];
 
@@ -52,10 +66,10 @@ class _CartState extends State<Cart> {
         title:
             const Text('Shopping Cart', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 19, 13, 0),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: cartItems.isEmpty
-          ? Center(
+          ? const Center(
               child: Text(
                 'Your cart is empty',
                 style: TextStyle(fontSize: 18),
@@ -135,6 +149,23 @@ class _CartState extends State<Cart> {
                                       }
                                     });
                                   },
+                                  onVariationSelected: (String? value) {
+                                    setState(() {
+                                      item.selectedVariation = value!;
+                                    });
+                                  },
+                                  onEdit: () {
+                                    _showEditModal(context, item,
+                                        (updatedItem) {
+                                      setState(() {
+                                        // Find the index of updatedItem in cartItems and update it
+                                        int index = cartItems.indexOf(item);
+                                        if (index != -1) {
+                                          cartItems[index] = updatedItem;
+                                        }
+                                      });
+                                    });
+                                  },
                                 ),
                               ),
                             )),
@@ -154,7 +185,7 @@ class _CartState extends State<Cart> {
                 children: [
                   Checkbox(
                     value: selectAll,
-                    activeColor: Color.fromARGB(
+                    activeColor: const Color.fromARGB(
                         255, 105, 83, 42), // Color when checkbox is checked
                     checkColor: Colors.white, // Color of the check icon
                     onChanged: (bool? value) {
@@ -170,19 +201,25 @@ class _CartState extends State<Cart> {
                   const Text('All'),
                 ],
               ),
-              Text(
+              const Text(
                 'Total: ',
-                style: const TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 18),
               ),
               Text(
                 '₱${calculateTotal()}',
                 style: const TextStyle(
                     fontSize: 18,
-                    color: const Color.fromARGB(
+                    color: Color.fromARGB(
                         255, 105, 83, 42)), // Total price in specific color
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Navigate to checkout page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CheckoutPage()),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: const Color.fromARGB(255, 19, 13, 0),
@@ -227,29 +264,48 @@ class _CartState extends State<Cart> {
       barrierDismissible: false, // user must tap button for close dialog
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text('Remove ${item.productName}?'),
+          title: Text(
+            'Remove ${item.productName}?',
+            style: TextStyle(
+              color: Colors.black, // Title text color
+              fontSize: 18.0, // Title font size
+              fontWeight: FontWeight.bold, // Title font weight
+            ),
+          ),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Do you want to remove this product from your cart?'),
+                Text(
+                  'Do you want to remove this product from your cart?',
+                  style: TextStyle(
+                    color: Colors.grey[800], // Content text color
+                    fontSize: 16.0, // Content font size
+                  ),
+                ),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel',
-                  style: TextStyle(
-                    color: const Color.fromARGB(255, 19, 13, 0),
-                  )),
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.redAccent, // Cancel button text color
+                  fontSize: 16.0, // Cancel button font size
+                ),
+              ),
               onPressed: () {
                 Navigator.of(dialogContext).pop(); // Dismiss the dialog
               },
             ),
             TextButton(
-              child: Text('Remove',
-                  style: TextStyle(
-                    color: const Color.fromARGB(255, 19, 13, 0),
-                  )),
+              child: Text(
+                'Remove',
+                style: TextStyle(
+                  color: Colors.redAccent, // Remove button text color
+                  fontSize: 16.0, // Remove button font size
+                ),
+              ),
               onPressed: () {
                 setState(() {
                   cartItems.remove(item); // Remove the item from the cart
@@ -262,6 +318,154 @@ class _CartState extends State<Cart> {
       },
     );
   }
+
+  // Show a modal bottom sheet to edit item details
+  void _showEditModal(BuildContext context, CartItemData item,
+      Function(CartItemData) updateCartItem) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    item.productName,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 16.0),
+                  Text('Select Variation:', style: TextStyle(fontSize: 16.0)),
+                  SizedBox(height: 8.0),
+                  Container(
+                    height: 120,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: item.variations.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Container(
+                                            width: 200, // Adjust as needed
+                                            height: 200, // Adjust as needed
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage(item
+                                                    .variationImages[index]),
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          item.variationImages[index]),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 5.0),
+                              ChoiceChip(
+                                label: Text(
+                                  item.variations[index],
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 105, 83, 42),
+                                  ),
+                                ),
+                                selected: item.selectedVariation ==
+                                    item.variations[index],
+                                onSelected: (bool selected) {
+                                  setState(() {
+                                    item.selectedVariation =
+                                        item.variations[index];
+                                    item.productImage =
+                                        item.variationImages[index];
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Text('Quantity', style: TextStyle(fontSize: 16.0)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.remove),
+                        onPressed: () {
+                          setState(() {
+                            if (item.quantity > 1) {
+                              item.quantity--;
+                            }
+                          });
+                        },
+                      ),
+                      Text(item.quantity.toString(),
+                          style: TextStyle(fontSize: 18.0)),
+                      IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: () {
+                          setState(() {
+                            item.quantity++;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20.0),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        updateCartItem(item); // Update item in main cart list
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color.fromARGB(255, 19, 13, 0),
+                      ),
+                      child: Text('Confirm', style: TextStyle(fontSize: 16.0)),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 }
 
 // Data model for a cart item
@@ -269,10 +473,10 @@ class CartItemData {
   final String storeName;
   final String productName;
   final String productPrice;
-  final String productImage;
-  final String? voucher;
-  final String? shipping;
-  final List<String>? addOnDeals;
+  String productImage;
+  final List<String> variations;
+  final List<String> variationImages;
+  String selectedVariation;
   bool isChecked;
   int quantity;
 
@@ -281,9 +485,9 @@ class CartItemData {
     required this.productName,
     required this.productPrice,
     required this.productImage,
-    this.voucher,
-    this.shipping,
-    this.addOnDeals,
+    required this.variations,
+    required this.variationImages,
+    required this.selectedVariation,
     this.isChecked = false,
     this.quantity = 1,
   });
@@ -296,6 +500,8 @@ class CartItem extends StatelessWidget {
   final ValueChanged<bool?> onChanged;
   final VoidCallback onIncrement;
   final VoidCallback onDecrement;
+  final ValueChanged<String?> onVariationSelected;
+  final VoidCallback onEdit;
 
   const CartItem({
     required this.item,
@@ -303,6 +509,8 @@ class CartItem extends StatelessWidget {
     required this.onChanged,
     required this.onIncrement,
     required this.onDecrement,
+    required this.onVariationSelected,
+    required this.onEdit,
   });
 
   @override
@@ -334,8 +542,25 @@ class CartItem extends StatelessWidget {
                 Text(
                   item.productPrice,
                   style: const TextStyle(
-                      fontSize: 14,
-                      color: const Color.fromARGB(255, 105, 83, 42)),
+                      fontSize: 14, color: Color.fromARGB(255, 105, 83, 42)),
+                ),
+                const SizedBox(height: 8.0),
+                GestureDetector(
+                  onTap: onEdit, // Call onEdit callback on tap
+                  child: Row(
+                    children: [
+                      Text(
+                        item.selectedVariation,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 105, 83, 42),
+                        ),
+                      ),
+                      const Icon(
+                        Icons.arrow_drop_down,
+                        color: Color.fromARGB(255, 105, 83, 42),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 8.0),
                 Row(
@@ -355,13 +580,25 @@ class CartItem extends StatelessWidget {
             ),
           ),
           Checkbox(
-            value: item.isChecked,
+            value: isChecked,
             onChanged: onChanged,
             activeColor: Color.fromARGB(
                 255, 105, 83, 42), // Color when checkbox is checked
             checkColor: Colors.white, // Color of the check icon
           ),
         ],
+      ),
+    );
+  }
+}
+
+// Checkout page widget
+class CheckoutPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Checkout(),
       ),
     );
   }

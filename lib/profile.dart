@@ -1,9 +1,10 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:test_dev/message.dart';
 import 'pages/my_purchases.dart';
 import 'pages/my_profile.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:test_dev/Cart.dart';
+import 'pages/cart.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -77,19 +78,14 @@ class Profile extends StatelessWidget {
                   const Icon(Icons.shopping_cart_outlined, color: Colors.white),
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        Cart()), 
+                MaterialPageRoute(builder: (context) => Cart()),
               ),
             ),
-           IconButton(
-              icon:
-                  const Icon(Icons.message_outlined, color: Colors.white),
+            IconButton(
+              icon: const Icon(Icons.message_outlined, color: Colors.white),
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        Message()), 
+                MaterialPageRoute(builder: (context) => Message()),
               ),
             ),
           ],
@@ -109,7 +105,7 @@ class Profile extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const MyProfile()),
+                              builder: (context) => EditProfilePage()),
                         );
                       },
                       child: Row(
@@ -130,7 +126,7 @@ class Profile extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const MyProfile()),
+                                            EditProfilePage()),
                                   );
                                 },
                                 child: const Text(
@@ -170,6 +166,7 @@ class Profile extends StatelessWidget {
                 ),
               ),
               // My Purchases
+              Divider(color: Colors.transparent, height: 10),
               Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -179,7 +176,7 @@ class Profile extends StatelessWidget {
                       width: 0.5,
                     ),
                     top: BorderSide(
-                      color: Colors.black,
+                      color: Colors.grey,
                       width: 0.5,
                     ),
                   ),
@@ -360,7 +357,7 @@ class Profile extends StatelessWidget {
                                 Icon(Icons.wallet, color: Colors.black),
                                 SizedBox(height: 5.0),
                                 Text(
-                                  'Wallet',
+                                  'Balance',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 14.0,
@@ -369,8 +366,7 @@ class Profile extends StatelessWidget {
                                 Text(
                                   '₱ 3023.22',
                                   style: TextStyle(
-                                    color:
-                                        const Color.fromARGB(255, 105, 83, 42),
+                                    color: Color.fromARGB(255, 105, 83, 42),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -401,8 +397,7 @@ class Profile extends StatelessWidget {
                                 Text(
                                   'Add Funds!',
                                   style: TextStyle(
-                                    color:
-                                        const Color.fromARGB(255, 105, 83, 42),
+                                    color: Color.fromARGB(255, 105, 83, 42),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -434,8 +429,7 @@ class Profile extends StatelessWidget {
                                     Text(
                                       '₱ 4563.12',
                                       style: TextStyle(
-                                        color: const Color.fromARGB(
-                                            255, 105, 83, 42),
+                                        color: Color.fromARGB(255, 105, 83, 42),
                                         fontSize: 14.0,
                                       ),
                                     ),
@@ -467,8 +461,7 @@ class Profile extends StatelessWidget {
                                 Text(
                                   '37 Vouchers',
                                   style: TextStyle(
-                                    color:
-                                        const Color.fromARGB(255, 105, 83, 42),
+                                    color: Color.fromARGB(255, 105, 83, 42),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -481,52 +474,132 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
+              Divider(color: Colors.transparent, height: 10),
               // Activities (Custom Grid View)
-
               Container(
-                padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 8.0,
-                    crossAxisSpacing: 8.0,
-                    childAspectRatio: 1.0,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                    top: BorderSide(
+                      color: Colors.grey,
+                      width: 0.5,
+                    ),
+                    bottom: BorderSide(
+                      color: Colors.grey,
+                      width: 0.5,
+                    ),
                   ),
-                  itemCount: activityNames.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        // Navigate to the designated page or perform action based on activity name
-                        navigateToActivityPage(activityNames[index]);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: Center(
-                          child: Text(
-                            activityNames[index],
-                            textAlign:
-                                TextAlign.center, // Aligns text to the center
-                            // ignore: prefer_const_constructors
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black, // Example text color
-                              fontWeight:
-                                  FontWeight.bold, // Example font weight
-                              fontStyle: FontStyle.italic, // Example font style
-                            ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 5.0,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsets.only(bottom: 30, left: 16, right: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: Text(
+                          'My Activities',
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
                           ),
                         ),
                       ),
-                    );
-                  },
+                    ),
+                    GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 8.0,
+                        crossAxisSpacing: 8.0,
+                        childAspectRatio: 2.0,
+                      ),
+                      itemCount: activityNames.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            navigateToActivityPage(activityNames[index]);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  activityIcons[index],
+                                  size: 24.0,
+                                  color: Colors.black,
+                                ),
+                                const SizedBox(height: 8.0),
+                                Text(
+                                  activityNames[index],
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 12.0,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
+
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Divider(
+                            color: Colors.black,
+                            thickness: 1,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            "You May Also Like",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Divider(
+                            color: Colors.black,
+                            thickness: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Divider(color: Colors.transparent, height: 10),
+              Container()
             ],
           ),
         ),
@@ -543,17 +616,33 @@ List<String> activityNames = [
   'Customer Support',
 ];
 
+final List<IconData> activityIcons = [
+  Icons.favorite,
+  Icons.history,
+  Icons.shopping_cart,
+  Icons.card_giftcard,
+  Icons.support_agent,
+];
+
 // Activity Page Navigation
 void navigateToActivityPage(String activityName) {
   // Perform navigation or action based on activity name
   switch (activityName) {
-    case 'Activity 1':
-      // Navigate to Activity 1 page or perform corresponding action
+    case 'Favorites':
+      // Navigate to Favorites page or perform corresponding action
       break;
-    case 'Activity 2':
-      // Navigate to Activity 2 page or perform corresponding action
+    case 'Recently Viewed':
+      // Navigate to Recently Viewed page or perform corresponding action
       break;
-    // Add cases for other activities as needed
+    case 'Buy Again':
+      // Navigate to Buy Again page or perform corresponding action
+      break;
+    case 'Rewards':
+      // Navigate to Rewards page or perform corresponding action
+      break;
+    case 'Customer Support':
+      // Navigate to Customer Support page or perform corresponding action
+      break;
     default:
       break;
   }
