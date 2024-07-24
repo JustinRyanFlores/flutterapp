@@ -15,19 +15,30 @@ class notification extends StatelessWidget {
         length: 2, // Number of tabs
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Notifications'),
+            title: Text(
+              'NOTIFICATIONS',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+                color: Color.fromRGBO(207, 178, 135, 1),
+              ),
+            ),
+            backgroundColor: Color.fromRGBO(2, 8, 75, 1),
+            iconTheme: IconThemeData(
+              color: Color.fromRGBO(207, 178, 135, 1),
+            ),
             actions: [
               IconButton(
                 icon: const Icon(
                   Icons.shopping_cart_outlined,
-                  color: Colors.orange,
+                  color: Color.fromRGBO(207, 178, 135, 1),
                 ),
                 onPressed: () => {},
               ),
               IconButton(
                 icon: const Icon(
                   Icons.chat_outlined,
-                  color: Colors.orange,
+                  color: Color.fromRGBO(207, 178, 135, 1),
                 ),
                 onPressed: () => {
                   Navigator.push(context,
@@ -36,6 +47,9 @@ class notification extends StatelessWidget {
               ),
             ],
             bottom: TabBar(
+              indicatorColor: Color.fromRGBO(207, 178, 135, 1),
+              labelColor: Color.fromRGBO(207, 178, 135, 1),
+              unselectedLabelColor: Colors.grey,
               tabs: [
                 Tab(text: 'Orders'),
                 Tab(text: 'Offers/Other Alerts'),
@@ -312,6 +326,10 @@ class CustomListTile extends StatelessWidget {
       trailing: ElevatedButton(
         onPressed: onPressed,
         child: Text('View Order'),
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Color.fromRGBO(207, 178, 135, 1),
+          backgroundColor: Color.fromRGBO(2, 8, 75, 1),
+        ),
       ),
       onTap: () {
         showDialog(
@@ -343,55 +361,46 @@ class Promotions extends StatelessWidget {
   // Root widget of your application
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(title: Text('Promotions:'), actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.orange,
-            ),
-            onPressed: () => {Navigator.pop(context)},
-          ),
-        ]),
-        body: ListView.builder(
-          itemCount: 5, // Example: 5 list items
-          itemBuilder: (context, index) {
-            // Example titles (replace with your own titles)
-            List<String> titles = [
-              'UP TO P100 OFF VOUCHER',
-              'FOR YOU P50 OFF',
-              'LIMITED: UP TO P250 OFF',
-              'SHOP NOW DISCOUNT VOUCHER',
-              'LOWEST PRICE IN 90 DAYS',
-            ];
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Promotions'),
+      ),
+      body: ListView.builder(
+        itemCount: 5, // Example: 5 list items
+        itemBuilder: (context, index) {
+          // Example titles (replace with your own titles)
+          List<String> titles = [
+            'UP TO P100 OFF VOUCHER',
+            'FOR YOU P50 OFF',
+            'LIMITED: UP TO P250 OFF',
+            'SHOP NOW DISCOUNT VOUCHER',
+            'LOWEST PRICE IN 90 DAYS',
+          ];
 
-            // Example descriptions (replace with your own descriptions)
-            List<String> descriptions = [
-              'Scan to pay with HardWhere',
-              'MORE VOUCHERS FOR YOU',
-              'LIMITED OFFER DEALS',
-              'UP TO 50% OFFERS',
-              'EXCLUSIVE SALES',
-            ];
+          // Example descriptions (replace with your own descriptions)
+          List<String> descriptions = [
+            'Scan to pay with HardWhere',
+            'MORE VOUCHERS FOR YOU',
+            'LIMITED OFFER DEALS',
+            'UP TO 50% OFFERS',
+            'EXCLUSIVE SALES',
+          ];
 
-            // Example images (replace with your own images)
-            List<String> images = [
-              'fiftyoff.jpeg',
-              'voucher.jpeg',
-              'fiftyoff.jpeg',
-              'voucher.jpeg',
-              'fiftyoff.jpeg',
-            ];
+          // Example images (replace with your own images)
+          List<String> images = [
+            'fiftyoff.jpeg',
+            'voucher.jpeg',
+            'fiftyoff.jpeg',
+            'voucher.jpeg',
+            'fiftyoff.jpeg',
+          ];
 
-            return PromotionTile(
-              title: titles[index % titles.length],
-              description: descriptions[index % descriptions.length],
-              imageUrl: images[index % images.length],
-            );
-          },
-        ),
+          return PromotionTile(
+            title: titles[index % titles.length],
+            description: descriptions[index % descriptions.length],
+            imageUrl: images[index % images.length],
+          );
+        },
       ),
     );
   }

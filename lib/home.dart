@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:test_dev/message.dart';
 import 'pages/cart.dart';
 import 'pages/item_details.dart';
 import 'pages/search_page.dart';
@@ -131,21 +132,22 @@ class _HomeState extends State<Home> {
           actions: [
             IconButton(
               icon:
-                  const Icon(Icons.shopping_cart_outlined, color: Colors.white),
+                  const Icon(Icons.shopping_cart_outlined, color: Color.fromRGBO(207, 178, 135, 1)),
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Cart()),
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.chat_outlined, color: Colors.white),
+              icon: const Icon(Icons.chat_outlined, color: Color.fromRGBO(207, 178, 135, 1)),
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SearchPage()),
+                MaterialPageRoute(builder: (context) => Message()),
               ),
             ),
           ],
           backgroundColor: Color.fromRGBO(2, 8, 75, 1),
+          
         ),
         body: CustomScrollView(
           slivers: [

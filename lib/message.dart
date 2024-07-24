@@ -10,7 +10,7 @@ class Message extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Chats',
+          'CHATS',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18.0,
@@ -140,36 +140,41 @@ class ChatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      leading: CircleAvatar(
-        backgroundImage: AssetImage(imageUrl),
-      ),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: TextStyle(fontWeight: FontWeight.bold),
+    return Column(
+      children: [
+        ListTile(
+          contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          leading: CircleAvatar(
+            backgroundImage: AssetImage(imageUrl),
           ),
-          SizedBox(height: 4.0),
-          Text(
-            description,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 4.0),
+              Text(
+                description,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
-        ],
-      ),
-      onTap: () {
-        // Navigate to the detail page
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                DetailPage(title: title, description: description),
-          ),
-        );
-      },
+          onTap: () {
+            // Navigate to the detail page
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    DetailPage(title: title, description: description),
+              ),
+            );
+          },
+        ),
+        Divider(), // This adds a divider line
+      ],
     );
   }
 }
@@ -185,8 +190,13 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
-        backgroundColor: Colors.orange,
+        title: Text(
+          title,
+          style: TextStyle(
+            color: Color.fromRGBO(207, 178, 135, 1),
+          ),
+        ),
+        backgroundColor: Color.fromRGBO(2, 8, 75, 1),
         actions: [
           IconButton(
             icon: Icon(Icons.call),
@@ -234,6 +244,9 @@ class DetailPage extends StatelessWidget {
             },
           ),
         ],
+        iconTheme: IconThemeData(
+          color: Color.fromRGBO(207, 178, 135, 1),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -317,12 +330,13 @@ class ChatMessage extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 4.0),
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
-          color: isSent ? Colors.orange : Colors.grey[300],
+          color: isSent ? Color.fromRGBO(2, 8, 75, 1) : Colors.grey[300],
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(
           message,
-          style: TextStyle(color: isSent ? Colors.white : Colors.black),
+          style: TextStyle(
+              color: isSent ? Color.fromRGBO(207,178,135, 1) : Colors.black),
         ),
       ),
     );
