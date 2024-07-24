@@ -13,7 +13,7 @@ class _CartState extends State<Cart> {
   // List of cart items
   final List<CartItemData> cartItems = [
     CartItemData(
-      storeName: '',
+      storeName: 'HUU',
       productName: 'HUU Trim Rib',
       productPrice: '₱ 251',
       productImage: 'ceilingtype.jpg',

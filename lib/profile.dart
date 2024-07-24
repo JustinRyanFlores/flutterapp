@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-
+import 'package:test_dev/pages/activities/buy_again.dart';
+import 'package:test_dev/pages/activities/favorites.dart';
+import 'package:test_dev/pages/activities/recently.dart';
+import 'package:test_dev/pages/activities/rewards.dart';
+import 'package:test_dev/pages/activities/support.dart';
 import 'package:test_dev/main.dart';
 import 'pages/wallet/mywallet.dart';
 import 'pages/wallet/credit.dart';
@@ -569,7 +573,8 @@ class Profile extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            navigateToActivityPage(activityNames[index]);
+                            navigateToActivityPage(
+                                context, activityNames[index]);
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -692,19 +697,40 @@ final List<IconData> activityIcons = [
 ];
 
 // Activity Page Navigation
-void navigateToActivityPage(String activityName) {
+void navigateToActivityPage(BuildContext context, String activityName) {
   switch (activityName) {
     case 'Favorites':
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const FavoritesPage()),
+      );
       break;
     case 'Recently Viewed':
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RecentlyViewedPage()),
+      );
       break;
     case 'Buy Again':
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const BuyAgainPage()),
+      );
       break;
     case 'Rewards':
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const RewardsPage()),
+      );
       break;
     case 'Customer Support':
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const CustomerSupportPage()),
+      );
       break;
     default:
       break;
   }
 }
+

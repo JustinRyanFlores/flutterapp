@@ -41,10 +41,10 @@ class _ItemDetailsState extends State<ItemDetails> {
       appBar: AppBar(
         title: Text(
           widget.title,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Color.fromRGBO(207, 178, 135, 1)),
         ),
-        backgroundColor: const Color.fromARGB(255, 19, 13, 0),
-        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: const Color.fromRGBO(2, 8, 75, 1),
+        iconTheme: IconThemeData(color: Color.fromRGBO(207, 178, 135, 1)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
