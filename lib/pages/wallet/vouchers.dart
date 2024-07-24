@@ -1,21 +1,19 @@
-
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 
-
 class VoucherPage extends StatelessWidget {
   final List<Voucher> vouchers = [
     Voucher(
-      title: "Shopee Mall",
+      title: "HardWhere Official",
       description: "20% off Capped at ₱200",
       discount: "20% off",
       minSpend: "Min. Spend ₱750",
       validity: "expiring: 9 hours left",
-      buttonText: "Use Later",
+      buttonText: "Use",
     ),
     Voucher(
-      title: "Shopee Live",
+      title: "HardWhere Live",
       description: "30% off Capped at ₱50",
       discount: "30% off",
       minSpend: "Min. Spend ₱0",
@@ -23,7 +21,7 @@ class VoucherPage extends StatelessWidget {
       buttonText: "Use",
     ),
     Voucher(
-      title: "Shopee Live",
+      title: "HardWhere PayLater",
       description: "30% off Capped at ₱50",
       discount: "30% off",
       minSpend: "Min. Spend ₱0",
@@ -31,7 +29,7 @@ class VoucherPage extends StatelessWidget {
       buttonText: "Use",
     ),
     Voucher(
-      title: "Shopee Live",
+      title: "HardWhere Live",
       description: "20% off Capped at ₱50",
       discount: "20% off",
       minSpend: "Min. Spend ₱0",
@@ -39,7 +37,7 @@ class VoucherPage extends StatelessWidget {
       buttonText: "Use",
     ),
     Voucher(
-      title: "Shopee Live XTRA",
+      title: "HardWhere Live XTRA",
       description: "15% off Capped at ₱100",
       discount: "15% off",
       minSpend: "Min. Spend ₱500",
@@ -47,7 +45,7 @@ class VoucherPage extends StatelessWidget {
       buttonText: "Use",
     ),
     Voucher(
-      title: "Shopee",
+      title: "HardWhere",
       description: "30% off Capped at ₱50",
       discount: "30% off",
       minSpend: "Min. Spend ₱0",
@@ -60,7 +58,18 @@ class VoucherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Vouchers'),
+        title: Text(
+          'HW VOUCHERS',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18.0,
+            color: Color.fromRGBO(207, 178, 135, 1),
+          ),
+        ),
+        backgroundColor: Color.fromRGBO(2, 8, 75, 1),
+        iconTheme: IconThemeData(
+          color: Color.fromRGBO(207, 178, 135, 1),
+        ),
       ),
       body: ListView.builder(
         itemCount: vouchers.length,
@@ -69,7 +78,8 @@ class VoucherPage extends StatelessWidget {
           return Card(
             margin: EdgeInsets.all(8.0),
             child: ListTile(
-              leading: Icon(Icons.local_offer, color: Colors.red),
+              leading:
+                  Icon(Icons.local_offer, color: Color.fromRGBO(2, 8, 75, 1)),
               title: Text(voucher.title),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,4 +120,3 @@ class Voucher {
     required this.buttonText,
   });
 }
-

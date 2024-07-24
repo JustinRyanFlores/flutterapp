@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_dev/pages/check_out.dart';
-
-void main() {
-  runApp(const MaterialApp(
-    home: Cart(),
-  ));
-}
+import 'package:test_dev/pages/store_page.dart';
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
@@ -24,6 +19,8 @@ class _CartState extends State<Cart> {
       productImage: 'ceilingtype.jpg',
       variations: ['Corrugated', 'Rib Type', 'Trim Rib'],
       variationImages: ['corrugated.png', 'ribtype.png', 'ceilingtype.jpg'],
+      variationNames: ['HUU Corrugated', 'HUU Rib Type', 'HUU Trim Rib'],
+      variationPrices: ['₱1,398', '₱1,998', '₱ 251'],
       selectedVariation: 'Trim Rib',
     ),
     CartItemData(
@@ -33,6 +30,8 @@ class _CartState extends State<Cart> {
       productImage: 'corrugated.png',
       variations: ['Corrugated', 'Rib Type', 'Trim Rib'],
       variationImages: ['corrugated.png', 'ribtype.png', 'ceilingtype.jpg'],
+      variationNames: ['HUU Corrugated', 'HUU Rib Type', 'HUU Trim Rib'],
+      variationPrices: ['₱1,398', '₱1,998', '₱ 251'],
       selectedVariation: 'Corrugated',
     ),
     CartItemData(
@@ -42,7 +41,13 @@ class _CartState extends State<Cart> {
       productImage: 'ribtype.png',
       variations: ['Corrugated', 'Rib Type', 'Trim Rib'],
       variationImages: ['corrugated.png', 'ribtype.png', 'ceilingtype.jpg'],
-      selectedVariation: '50ml bottle',
+      variationNames: [
+        'Carpasteel Corrugated',
+        'Carpasteel Rib Type',
+        'Carpasteel Trim Rib'
+      ],
+      variationPrices: ['₱1,398', '₱1,998', '₱ 251'],
+      selectedVariation: 'Rib Type',
     ),
   ];
 
@@ -64,9 +69,9 @@ class _CartState extends State<Cart> {
       appBar: AppBar(
         toolbarHeight: 70,
         title:
-            const Text('Shopping Cart', style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color.fromARGB(255, 19, 13, 0),
-        iconTheme: const IconThemeData(color: Colors.white),
+            const Text('Shopping Cart', style: TextStyle(color:Color.fromRGBO(207,178,135, 1))),
+        backgroundColor: Color.fromRGBO(2, 8, 75, 1),
+         iconTheme: const IconThemeData(color: Color.fromRGBO(207,178,135, 1)),
       ),
       body: cartItems.isEmpty
           ? const Center(
@@ -85,17 +90,36 @@ class _CartState extends State<Cart> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            entry.key,
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ShopScreen(storeName: entry.key),
+                                ),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  entry.key,
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(width: 4),
+                                const Icon(Icons.chevron_right,
+                                    size: 16, color: Colors.grey),
+                              ],
+                            ),
                           ),
                         ),
                         // Display each cart item
                         ...entry.value.map((item) => Dismissible(
                               key: Key(item.productName),
                               background: Container(
-                                padding: const EdgeInsets.all(33.0),
+                                padding: const EdgeInsets.all(55.0),
                                 color: Colors.orange,
                                 child: const ListTile(
                                   leading: Icon(Icons.find_in_page,
@@ -103,7 +127,7 @@ class _CartState extends State<Cart> {
                                 ),
                               ),
                               secondaryBackground: Container(
-                                padding: const EdgeInsets.all(33.0),
+                                padding: const EdgeInsets.all(55.0),
                                 color: Colors.red,
                                 child: const ListTile(
                                   trailing:
@@ -214,15 +238,19 @@ class _CartState extends State<Cart> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // Navigate to checkout page
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CheckoutPage()),
-                  );
+                  if (getCheckedItemCount() == 0) {
+                    _showNoItemsSelectedDialog();
+                  } else {
+                    // Navigate to checkout page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CheckoutPage()),
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: const Color.fromARGB(255, 19, 13, 0),
+                  backgroundColor: Color.fromRGBO(2, 8, 75, 1),
                 ),
                 child: Text('Check Out (${getCheckedItemCount()})'),
               ),
@@ -230,6 +258,50 @@ class _CartState extends State<Cart> {
           ),
         ),
       ),
+    );
+  }
+
+// Show a dialog when no items are selected for checkout
+  Future<void> _showNoItemsSelectedDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // User must tap button to close dialog
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text(
+            'No Items Selected',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                const Text(
+                  'You have not selected any items for checkout.',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 73, 70, 70),
+                    fontSize: 16.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                'OK',
+                style: TextStyle(color: Color.fromARGB(255, 105, 83, 42)),
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop(); // Dismiss the dialog
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -266,7 +338,7 @@ class _CartState extends State<Cart> {
         return AlertDialog(
           title: Text(
             'Remove ${item.productName}?',
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black, // Title text color
               fontSize: 18.0, // Title font size
               fontWeight: FontWeight.bold, // Title font weight
@@ -287,23 +359,19 @@ class _CartState extends State<Cart> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text(
+              child: const Text(
                 'Cancel',
-                style: TextStyle(
-                  color: Colors.redAccent, // Cancel button text color
-                  fontSize: 16.0, // Cancel button font size
-                ),
+                style: TextStyle(color: Colors.black),
               ),
               onPressed: () {
                 Navigator.of(dialogContext).pop(); // Dismiss the dialog
               },
             ),
             TextButton(
-              child: Text(
+              child: const Text(
                 'Remove',
                 style: TextStyle(
-                  color: Colors.redAccent, // Remove button text color
-                  fontSize: 16.0, // Remove button font size
+                  color: Colors.red, // Remove button text color
                 ),
               ),
               onPressed: () {
@@ -319,31 +387,35 @@ class _CartState extends State<Cart> {
     );
   }
 
-  // Show a modal bottom sheet to edit item details
+// Show a modal bottom sheet to edit the cart item
   void _showEditModal(BuildContext context, CartItemData item,
-      Function(CartItemData) updateCartItem) {
+      Function(CartItemData) onUpdate) {
+    String selectedVariation = item.selectedVariation;
+    int selectedIndex = item.variations.indexOf(selectedVariation);
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext bc) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Container(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
                     item.productName,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 16.0),
-                  Text('Select Variation:', style: TextStyle(fontSize: 16.0)),
-                  SizedBox(height: 8.0),
-                  Container(
+                  const SizedBox(height: 16.0),
+                  const Text('Select Variation:',
+                      style: TextStyle(fontSize: 16.0)),
+                  const SizedBox(height: 8.0),
+                  SizedBox(
                     height: 120,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -364,8 +436,8 @@ class _CartState extends State<Cart> {
                                             Navigator.of(context).pop();
                                           },
                                           child: Container(
-                                            width: 200, // Adjust as needed
-                                            height: 200, // Adjust as needed
+                                            width: 290,
+                                            height: 290,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
                                                 image: AssetImage(item
@@ -383,7 +455,6 @@ class _CartState extends State<Cart> {
                                   width: 80,
                                   height: 80,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.0),
                                     image: DecorationImage(
                                       image: AssetImage(
                                           item.variationImages[index]),
@@ -392,24 +463,36 @@ class _CartState extends State<Cart> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 5.0),
+                              const SizedBox(height: 5.0),
                               ChoiceChip(
                                 label: Text(
                                   item.variations[index],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Color.fromARGB(255, 105, 83, 42),
                                   ),
                                 ),
-                                selected: item.selectedVariation ==
-                                    item.variations[index],
+                                selected:
+                                    selectedVariation == item.variations[index],
                                 onSelected: (bool selected) {
                                   setState(() {
-                                    item.selectedVariation =
-                                        item.variations[index];
+                                    selectedVariation = item.variations[index];
+                                    selectedIndex = index;
+
+                                    // Update item with selected variation details
+                                    item.productName =
+                                        item.variationNames[selectedIndex];
+                                    item.productPrice =
+                                        item.variationPrices[selectedIndex];
                                     item.productImage =
-                                        item.variationImages[index];
+                                        item.variationImages[selectedIndex];
                                   });
                                 },
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  side: const BorderSide(
+                                    color: Color.fromARGB(255, 105, 83, 42),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -417,45 +500,29 @@ class _CartState extends State<Cart> {
                       },
                     ),
                   ),
-                  SizedBox(height: 10.0),
-                  Text('Quantity', style: TextStyle(fontSize: 16.0)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.remove),
-                        onPressed: () {
-                          setState(() {
-                            if (item.quantity > 1) {
-                              item.quantity--;
-                            }
-                          });
-                        },
-                      ),
-                      Text(item.quantity.toString(),
-                          style: TextStyle(fontSize: 18.0)),
-                      IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () {
-                          setState(() {
-                            item.quantity++;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 10.0),
+                  Text('Price: ${item.variationPrices[selectedIndex]}',
+                      style: TextStyle(fontSize: 16.0)),
+                  const SizedBox(height: 20.0),
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        updateCartItem(item); // Update item in main cart list
-                        Navigator.pop(context);
+                        setState(() {
+                          item.selectedVariation = selectedVariation;
+                          item.isChecked = true; // Check the checkbox
+                        });
+                        onUpdate(item);
+                        Navigator.of(context).pop(); // Close the modal
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: const Color.fromARGB(255, 19, 13, 0),
+                        backgroundColor: Color.fromRGBO(2, 8, 75, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
                       ),
-                      child: Text('Confirm', style: TextStyle(fontSize: 16.0)),
+                      child: const Text('Confirm',
+                          style: TextStyle(fontSize: 16.0)),
                     ),
                   ),
                 ],
@@ -468,32 +535,6 @@ class _CartState extends State<Cart> {
   }
 }
 
-// Data model for a cart item
-class CartItemData {
-  final String storeName;
-  final String productName;
-  final String productPrice;
-  String productImage;
-  final List<String> variations;
-  final List<String> variationImages;
-  String selectedVariation;
-  bool isChecked;
-  int quantity;
-
-  CartItemData({
-    required this.storeName,
-    required this.productName,
-    required this.productPrice,
-    required this.productImage,
-    required this.variations,
-    required this.variationImages,
-    required this.selectedVariation,
-    this.isChecked = false,
-    this.quantity = 1,
-  });
-}
-
-// Widget to display individual cart item details
 class CartItem extends StatelessWidget {
   final CartItemData item;
   final bool isChecked;
@@ -504,6 +545,7 @@ class CartItem extends StatelessWidget {
   final VoidCallback onEdit;
 
   const CartItem({
+    Key? key,
     required this.item,
     required this.isChecked,
     required this.onChanged,
@@ -511,85 +553,132 @@ class CartItem extends StatelessWidget {
     required this.onDecrement,
     required this.onVariationSelected,
     required this.onEdit,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5.0),
-            child: Image.asset(
-              item.productImage,
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(width: 16.0),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item.productName,
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8.0),
-                Text(
-                  item.productPrice,
-                  style: const TextStyle(
-                      fontSize: 14, color: Color.fromARGB(255, 105, 83, 42)),
-                ),
-                const SizedBox(height: 8.0),
-                GestureDetector(
-                  onTap: onEdit, // Call onEdit callback on tap
-                  child: Row(
-                    children: [
-                      Text(
-                        item.selectedVariation,
-                        style: const TextStyle(
-                          color: Color.fromARGB(255, 105, 83, 42),
-                        ),
-                      ),
-                      const Icon(
-                        Icons.arrow_drop_down,
-                        color: Color.fromARGB(255, 105, 83, 42),
-                      ),
-                    ],
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            // Product details and controls
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  // Product image
+                  Image.asset(
+                    '${item.productImage}',
+                    width: 60,
+                    height: 60,
+                    fit: BoxFit.cover,
                   ),
-                ),
-                const SizedBox(height: 8.0),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.remove),
-                      onPressed: onDecrement,
+                  const SizedBox(width: 8),
+                  // Product details
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(item.productName,
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 4),
+                        Text(item.productPrice,
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 105, 83, 42))),
+                        const SizedBox(height: 8),
+                        // Place the TextButton below the product price
+                        TextButton(
+                          onPressed: onEdit,
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                item.productName,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Color.fromARGB(255, 105, 83, 42),
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              const Icon(
+                                Icons.arrow_drop_down,
+                                color: Color.fromARGB(255, 105, 83, 42),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        // Quantity controls
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.remove),
+                              onPressed: onDecrement,
+                            ),
+                            Text('${item.quantity}'),
+                            IconButton(
+                              icon: const Icon(Icons.add),
+                              onPressed: () {
+                                onIncrement();
+                                // Automatically check the checkbox when quantity is incremented
+                                onChanged(true);
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Text(item.quantity.toString()),
-                    IconButton(
-                      icon: const Icon(Icons.add),
-                      onPressed: onIncrement,
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          Checkbox(
-            value: isChecked,
-            onChanged: onChanged,
-            activeColor: Color.fromARGB(
-                255, 105, 83, 42), // Color when checkbox is checked
-            checkColor: Colors.white, // Color of the check icon
-          ),
-        ],
+            // Checkbox on the right side
+            Checkbox(
+              value: isChecked,
+              activeColor: Color.fromARGB(
+                  255, 105, 83, 42), // Color when checkbox is checked
+              checkColor: Colors.white, // Color of the check icon
+              onChanged: onChanged,
+            ),
+          ],
+        ),
       ),
     );
   }
+}
+
+// Cart item data model
+class CartItemData {
+  final String storeName;
+  String productName;
+  String productPrice;
+  String productImage;
+  final List<String> variations;
+  final List<String> variationImages;
+  final List<String> variationNames;
+  final List<String> variationPrices;
+  String selectedVariation;
+  int quantity;
+  bool isChecked;
+
+  CartItemData({
+    required this.storeName,
+    required this.productName,
+    required this.productPrice,
+    required this.productImage,
+    required this.variations,
+    required this.variationImages,
+    required this.variationNames,
+    required this.variationPrices,
+    required this.selectedVariation,
+    this.quantity = 1,
+    this.isChecked = false,
+  });
 }
 
 // Checkout page widget
@@ -599,6 +688,22 @@ class CheckoutPage extends StatelessWidget {
     return const Scaffold(
       body: Center(
         child: Checkout(),
+      ),
+    );
+  }
+}
+
+// Dummy StorePage class for demonstration purposes
+class StorePage extends StatelessWidget {
+  const StorePage({super.key, required String storeName});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Store(
+          storeName: '',
+        ),
       ),
     );
   }

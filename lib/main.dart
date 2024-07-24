@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, use_key_in_widget_constructors, use_super_parameters
+// ignore_for_file: file_names, use_key_in_widget_constructors, use_super_parameters, prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'pages/cart.dart';
 import 'home.dart';
@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildLoadingScreen() {
     return Container(
-      color: const Color.fromARGB(255, 19, 13, 0),
+      color: const Color.fromRGBO(2, 8, 75, 1),
       child: Center(
         child: SizedBox(
           width: 300,
@@ -77,23 +77,25 @@ class _MyHomePageState extends State<MyHomePage> {
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
-      fixedColor: Colors.black,
+      fixedColor: Color.fromRGBO(2, 8, 75, 1),
       items: const [
         BottomNavigationBarItem(
           label: "Home",
-          icon: Icon(Icons.home_outlined, color: Colors.black),
+          icon: Icon(Icons.home_outlined, color: Color.fromRGBO(2, 8, 75, 1)),
         ),
         BottomNavigationBarItem(
           label: "Message",
-          icon: Icon(Icons.message_outlined, color: Colors.black),
+          icon:
+              Icon(Icons.message_outlined, color: Color.fromRGBO(2, 8, 75, 1)),
         ),
         BottomNavigationBarItem(
           label: "Notification",
-          icon: Icon(Icons.notifications_none, color: Colors.black),
+          icon: Icon(Icons.notifications_none,
+              color: Color.fromRGBO(2, 8, 75, 1)),
         ),
         BottomNavigationBarItem(
           label: "Me",
-          icon: Icon(Icons.person_outline, color: Colors.black),
+          icon: Icon(Icons.person_outline, color: Color.fromRGBO(2, 8, 75, 1)),
         ),
       ],
       onTap: (int index) {
@@ -145,7 +147,7 @@ class NotificationTab extends StatelessWidget {
 class ProfileTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Center(
         child: Profile(),
       ),

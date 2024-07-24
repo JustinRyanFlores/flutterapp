@@ -2,17 +2,46 @@
 
 import 'package:flutter/material.dart';
 
-import 'message.dart';
+import 'package:test_dev/main.dart';
 import 'pages/wallet/mywallet.dart';
 import 'pages/wallet/credit.dart';
 import 'pages/my_purchases.dart';
 import 'pages/my_profile.dart';
 import 'pages/cart.dart';
 import 'pages/wallet/vouchers.dart';
+import 'itemcardwidget.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
+  Profile({Key? key}) : super(key: key);
 
+  final List<Map<String, String>> staggeredItems = [
+    {'imagePath': 'item1.png', 'title': 'PVC P-Trap', 'price': '125.00 PHP'},
+    {
+      'imagePath': 'item2.png',
+      'title': 'Fine Fissured 2x2',
+      'price': '205.00 PHP'
+    },
+    {'imagePath': 'item3.png', 'title': 'Rockwool 50mm', 'price': '320.00 PHP'},
+    {'imagePath': 'item4.jpg', 'title': 'Plywood 3/16', 'price': '450.00 PHP'},
+    {
+      'imagePath': 'item5.png',
+      'title': 'Tekscrew #12x55',
+      'price': '30.00 PHP'
+    },
+    {
+      'imagePath': 'item6.png',
+      'title': 'Razor Barb Wire',
+      'price': '445.00 PHP'
+    },
+    {'imagePath': 'item7.png', 'title': 'PVC End Bell', 'price': '12.00 PHP'},
+    {'imagePath': 'item8.png', 'title': 'PVC Pipe 3m', 'price': '299.00 PHP'},
+    {
+      'imagePath': 'item9.png',
+      'title': 'PVC Junction Box',
+      'price': '43.00 PHP'
+    },
+    {'imagePath': 'item10.jpg', 'title': 'PVC Clamp', 'price': '6.00 PHP'},
+  ];
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -20,7 +49,7 @@ class Profile extends StatelessWidget {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 19, 13, 0),
+          backgroundColor: const Color.fromRGBO(2, 8, 75, 1),
           title: Row(
             children: [
               Padding(
@@ -37,25 +66,25 @@ class Profile extends StatelessWidget {
                     child: Container(
                       width: 150.0,
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      color: Colors.white,
+                      color: Color.fromRGBO(207, 178, 135, 1),
                       child: const Row(
                         children: [
                           Icon(
                             Icons.handyman,
-                            color: Colors.black,
+                            color: Color.fromRGBO(2, 8, 75, 1),
                           ),
                           SizedBox(width: 5.0),
                           Text(
                             "Be a seller!",
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Color.fromRGBO(2, 8, 75, 1),
                               fontSize: 14.0,
                             ),
                           ),
                           SizedBox(width: 5.0),
                           Icon(
                             Icons.chevron_right_outlined,
-                            color: Colors.black,
+                            color: Color.fromRGBO(2, 8, 75, 1),
                           ),
                         ],
                       ),
@@ -72,24 +101,25 @@ class Profile extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(
                   Icons.settings_outlined,
-                  color: Colors.white,
+                  color: Color.fromRGBO(207, 178, 135, 1),
                 ),
                 onPressed: () => {},
               ),
             ),
             IconButton(
-              icon:
-                  const Icon(Icons.shopping_cart_outlined, color: Colors.white),
+              icon: const Icon(Icons.shopping_cart_outlined,
+                  color: Color.fromRGBO(207, 178, 135, 1)),
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Cart()),
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.message_outlined, color: Colors.white),
+              icon: const Icon(Icons.message_outlined,
+                  color: Color.fromRGBO(207, 178, 135, 1)),
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Message()),
+                MaterialPageRoute(builder: (context) => MessageTab()),
               ),
             ),
           ],
@@ -100,7 +130,7 @@ class Profile extends StatelessWidget {
             children: [
               // Profile
               Container(
-                color: const Color.fromARGB(255, 19, 13, 0),
+                color: const Color.fromRGBO(2, 8, 75, 1),
                 padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
                 child: Column(
                   children: [
@@ -136,7 +166,7 @@ class Profile extends StatelessWidget {
                                 child: const Text(
                                   'User_Sample_Name',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Color.fromRGBO(207, 178, 135, 1),
                                     fontSize: 15.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -147,7 +177,7 @@ class Profile extends StatelessWidget {
                                   Text(
                                     '3 Followers',
                                     style: TextStyle(
-                                      color: Colors.white70,
+                                      color: Color.fromRGBO(207, 178, 135, 1),
                                       fontSize: 10.0,
                                     ),
                                   ),
@@ -155,7 +185,7 @@ class Profile extends StatelessWidget {
                                   Text(
                                     '28 Following',
                                     style: TextStyle(
-                                      color: Colors.white70,
+                                      color: Color.fromRGBO(207, 178, 135, 1),
                                       fontSize: 10.0,
                                     ),
                                   ),
@@ -201,7 +231,7 @@ class Profile extends StatelessWidget {
                       const Text(
                         'My Purchases',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Color.fromARGB(174, 0, 0, 0),
                           fontSize: 14.0,
                         ),
                       ),
@@ -220,12 +250,12 @@ class Profile extends StatelessWidget {
                             child: const Column(
                               children: [
                                 Icon(Icons.payment_outlined,
-                                    color: Colors.black),
+                                    color: Color.fromARGB(174, 0, 0, 0)),
                                 SizedBox(height: 5.0),
                                 Text(
                                   'To Pay',
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: Color.fromARGB(174, 0, 0, 0),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -244,12 +274,12 @@ class Profile extends StatelessWidget {
                             child: const Column(
                               children: [
                                 Icon(Icons.local_shipping_outlined,
-                                    color: Colors.black),
+                                    color: Color.fromARGB(174, 0, 0, 0)),
                                 SizedBox(height: 5.0),
                                 Text(
                                   'To Ship',
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: Color.fromARGB(174, 0, 0, 0),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -267,12 +297,13 @@ class Profile extends StatelessWidget {
                             },
                             child: const Column(
                               children: [
-                                Icon(Icons.inbox_outlined, color: Colors.black),
+                                Icon(Icons.inbox_outlined,
+                                    color: Color.fromARGB(174, 0, 0, 0)),
                                 SizedBox(height: 5.0),
                                 Text(
                                   'To Receive',
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: Color.fromARGB(174, 0, 0, 0),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -290,12 +321,13 @@ class Profile extends StatelessWidget {
                             },
                             child: const Column(
                               children: [
-                                Icon(Icons.star_outline, color: Colors.black),
+                                Icon(Icons.star_outline,
+                                    color: Color.fromARGB(174, 0, 0, 0)),
                                 SizedBox(height: 5.0),
                                 Text(
                                   'To Rate',
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: Color.fromARGB(174, 0, 0, 0),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -340,7 +372,7 @@ class Profile extends StatelessWidget {
                       const Text(
                         'My Wallet',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Color.fromARGB(174, 0, 0, 0),
                           fontSize: 14.0,
                         ),
                       ),
@@ -358,19 +390,20 @@ class Profile extends StatelessWidget {
                             },
                             child: const Column(
                               children: [
-                                Icon(Icons.wallet, color: Colors.black),
+                                Icon(Icons.wallet,
+                                    color: Color.fromARGB(174, 0, 0, 0)),
                                 SizedBox(height: 5.0),
                                 Text(
                                   'Balance',
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: Color.fromARGB(174, 0, 0, 0),
                                     fontSize: 14.0,
                                   ),
                                 ),
                                 Text(
                                   '₱ 3023.22',
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 105, 83, 42),
+                                    color: Color.fromRGBO(207, 178, 135, 1),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -391,19 +424,19 @@ class Profile extends StatelessWidget {
                             child: const Column(
                               children: [
                                 Icon(Icons.add_circle_outline,
-                                    color: Colors.black),
+                                    color: Color.fromARGB(174, 0, 0, 0)),
                                 SizedBox(height: 5.0),
                                 Text(
                                   'Funds',
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: Color.fromARGB(174, 0, 0, 0),
                                     fontSize: 14.0,
                                   ),
                                 ),
                                 Text(
                                   'Add Funds!',
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 105, 83, 42),
+                                    color: Color.fromRGBO(207, 178, 135, 1),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -421,21 +454,22 @@ class Profile extends StatelessWidget {
                             },
                             child: const Column(
                               children: [
-                                Icon(Icons.credit_card, color: Colors.black),
+                                Icon(Icons.credit_card,
+                                    color: Color.fromARGB(174, 0, 0, 0)),
                                 SizedBox(height: 5.0),
                                 Column(
                                   children: [
                                     Text(
                                       'Credit',
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        color: Color.fromARGB(174, 0, 0, 0),
                                         fontSize: 14.0,
                                       ),
                                     ),
                                     Text(
                                       '₱ 4563.12',
                                       style: TextStyle(
-                                        color: Color.fromARGB(255, 105, 83, 42),
+                                        color: Color.fromRGBO(207, 178, 135, 1),
                                         fontSize: 14.0,
                                       ),
                                     ),
@@ -455,19 +489,20 @@ class Profile extends StatelessWidget {
                             },
                             child: const Column(
                               children: [
-                                Icon(Icons.local_activity, color: Colors.black),
+                                Icon(Icons.local_activity,
+                                    color: Color.fromARGB(174, 0, 0, 0)),
                                 SizedBox(height: 5.0),
                                 Text(
                                   'Vouchers',
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: Color.fromARGB(174, 0, 0, 0),
                                     fontSize: 14.0,
                                   ),
                                 ),
                                 Text(
                                   '37 Vouchers',
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 105, 83, 42),
+                                    color: Color.fromRGBO(207, 178, 135, 1),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -515,7 +550,7 @@ class Profile extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Color.fromARGB(174, 0, 0, 0),
                           ),
                         ),
                       ),
@@ -547,8 +582,8 @@ class Profile extends StatelessWidget {
                               children: [
                                 Icon(
                                   activityIcons[index],
+                                  color: iconColors[index],
                                   size: 24.0,
-                                  color: Colors.black,
                                 ),
                                 const SizedBox(height: 8.0),
                                 Text(
@@ -556,7 +591,7 @@ class Profile extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                     fontSize: 12.0,
-                                    color: Colors.black,
+                                    color: Color.fromARGB(174, 0, 0, 0),
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -571,7 +606,7 @@ class Profile extends StatelessWidget {
               ),
 
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -579,7 +614,7 @@ class Profile extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           child: Divider(
-                            color: Colors.black,
+                            color: Color.fromARGB(174, 0, 0, 0),
                             thickness: 1,
                           ),
                         ),
@@ -588,14 +623,14 @@ class Profile extends StatelessWidget {
                           child: Text(
                             "You May Also Like",
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Color.fromARGB(174, 0, 0, 0),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                         Expanded(
                           child: Divider(
-                            color: Colors.black,
+                            color: Color.fromARGB(174, 0, 0, 0),
                             thickness: 1,
                           ),
                         ),
@@ -604,8 +639,25 @@ class Profile extends StatelessWidget {
                   ],
                 ),
               ),
-              Divider(color: Colors.transparent, height: 10),
-              Container()
+              GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8.0,
+                  crossAxisSpacing: 8.0,
+                  childAspectRatio: 0.75,
+                ),
+                itemCount: staggeredItems.length,
+                itemBuilder: (context, index) {
+                  final item = staggeredItems[index];
+                  return StaggeredItemCard(
+                    imagePath: item['imagePath']!,
+                    title: item['title']!,
+                    price: item['price']!,
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -614,12 +666,21 @@ class Profile extends StatelessWidget {
   }
 }
 
+// Activity Page Attributes
 List<String> activityNames = [
   'Favorites',
   'Recently Viewed',
   'Buy Again',
   'Rewards',
   'Customer Support',
+];
+
+final List<Color> iconColors = [
+  Colors.red,
+  Colors.blue,
+  Colors.green,
+  Colors.purple,
+  Color.fromRGBO(2, 8, 75, 1),
 ];
 
 final List<IconData> activityIcons = [
@@ -632,22 +693,16 @@ final List<IconData> activityIcons = [
 
 // Activity Page Navigation
 void navigateToActivityPage(String activityName) {
-  // Perform navigation or action based on activity name
   switch (activityName) {
     case 'Favorites':
-      // Navigate to Favorites page or perform corresponding action
       break;
     case 'Recently Viewed':
-      // Navigate to Recently Viewed page or perform corresponding action
       break;
     case 'Buy Again':
-      // Navigate to Buy Again page or perform corresponding action
       break;
     case 'Rewards':
-      // Navigate to Rewards page or perform corresponding action
       break;
     case 'Customer Support':
-      // Navigate to Customer Support page or perform corresponding action
       break;
     default:
       break;

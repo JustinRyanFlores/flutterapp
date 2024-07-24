@@ -1,8 +1,11 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'pages/cart.dart';
 import 'pages/item_details.dart';
+import 'pages/search_page.dart';
+
+
+
 
 void main() => runApp(const MaterialApp(home: Home()));
 
@@ -17,6 +20,35 @@ class _HomeState extends State<Home> {
   int _currentPage = 0;
   final PageController _pageController = PageController();
 
+  final List<Map<String, String>> staggeredItems = [
+    {'imagePath': 'item1.png', 'title': 'PVC P-Trap', 'price': '125.00 PHP'},
+    {
+      'imagePath': 'item2.png',
+      'title': 'Fine Fissured 2x2',
+      'price': '205.00 PHP'
+    },
+    {'imagePath': 'item3.png', 'title': 'Rockwool 50mm', 'price': '320.00 PHP'},
+    {'imagePath': 'item4.jpg', 'title': 'Plywood 3/16', 'price': '450.00 PHP'},
+    {
+      'imagePath': 'item5.png',
+      'title': 'Tekscrew #12x55',
+      'price': '30.00 PHP'
+    },
+    {
+      'imagePath': 'item6.png',
+      'title': 'Razor Barb Wire',
+      'price': '445.00 PHP'
+    },
+    {'imagePath': 'item7.png', 'title': 'PVC End Bell', 'price': '12.00 PHP'},
+    {'imagePath': 'item8.png', 'title': 'PVC Pipe 3m', 'price': '299.00 PHP'},
+    {
+      'imagePath': 'item9.png',
+      'title': 'PVC Junction Box',
+      'price': '43.00 PHP'
+    },
+    {'imagePath': 'item10.jpg', 'title': 'PVC Clamp', 'price': '6.00 PHP'},
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -24,14 +56,23 @@ class _HomeState extends State<Home> {
   }
 
   void _autoSwipe() {
-    Future.delayed(Duration(seconds: 10), () {
+    Future.delayed(Duration(seconds: 20), () {
       if (_pageController.hasClients) {
         int nextPage = (_currentPage + 1) % 3;
-        _pageController.animateToPage(
+        _pageController
+            .animateToPage(
           nextPage,
           duration: Duration(milliseconds: 300),
           curve: Curves.easeIn,
-        );
+        )
+            .then((_) {
+          if (mounted) {
+            setState(() {
+              _currentPage = nextPage;
+            });
+            _autoSwipe();
+          }
+        });
       }
     });
   }
@@ -59,9 +100,13 @@ class _HomeState extends State<Home> {
                   ),
                   child: Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Icon(Icons.search),
+                      IconButton(
+                        icon: const Icon(Icons.search,
+                            color: Color.fromARGB(255, 0, 0, 0)),
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SearchPage()),
+                        ),
                       ),
                       const SizedBox(width: 10.0),
                       const Expanded(
@@ -93,234 +138,246 @@ class _HomeState extends State<Home> {
               ),
             ),
             IconButton(
-              icon: const Icon(
-                Icons.chat_outlined,
-                color: Colors.white,
+              icon: const Icon(Icons.chat_outlined, color: Colors.white),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SearchPage()),
               ),
-              onPressed: () => {},
             ),
           ],
-          backgroundColor: const Color.fromARGB(255, 19, 13, 0),
+          backgroundColor: Color.fromRGBO(2, 8, 75, 1),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: 190,
-                child: PageView(
-                  controller: _pageController,
-                  onPageChanged: (index) {
-                    setState(() {
-                      _currentPage = index;
-                    });
-                    _autoSwipe();
+        body: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    height: 200.0,
+                    width: double.infinity,
+                    child: PageView.builder(
+                      itemCount: 3,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _currentPage = index;
+                        });
+                      },
+                      itemBuilder: (context, index) {
+                        return Image.asset(
+                          'ad$index.png',
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 16.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(3, (index) {
+                        return AnimatedContainer(
+                          duration: Duration(seconds: 5),
+                          margin: EdgeInsets.symmetric(horizontal: 4.0),
+                          height: 8.0,
+                          width: _currentPage == index ? 12.0 : 8.0,
+                          decoration: BoxDecoration(
+                            color: _currentPage == index
+                                ? Colors.grey
+                                : Colors.grey.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.only(top: 20, left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Roofing Materials',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'View All',
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                height: 250,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap:
+                      true, // Ensures the ListView takes only the required height
+                  physics: AlwaysScrollableScrollPhysics(), // Enable scrolling
+                  children: const [
+                    ItemCard(
+                      imagePath: 'trimrib.png',
+                      title: 'HUU Trim Rib',
+                      price: '251.00 PHP',
+                    ),
+                    ItemCard(
+                      imagePath: 'corrugated.png',
+                      title: 'HUU Corrugated',
+                      price: '334.00 PHP',
+                    ),
+                    ItemCard(
+                      imagePath: 'ribtype.png',
+                      title: 'Seymour Ribtype',
+                      price: '1,533.00 PHP',
+                    ),
+                    ItemCard(
+                      imagePath: 'ceilingtype.jpg',
+                      title: 'PVC Ceiling Panel',
+                      price: '390.00 PHP',
+                    ),
+                    ItemCard(
+                      imagePath: 'longspan.jpg',
+                      title: 'Longspan Ribtype',
+                      price: '560.00 PHP',
+                    ),
+                    // Add more ItemCard widgets as needed
+                  ],
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.only(top: 20, left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Hardware',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'View All',
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                height: 250,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap:
+                      true, // Ensures the ListView takes only the required height
+                  physics: AlwaysScrollableScrollPhysics(), // Enable scrolling
+                  children: const [
+                    ItemCard(
+                      imagePath: 'wrench.png',
+                      title: 'Lotus Wrench Cp 8',
+                      price: '398.00 PHP',
+                    ),
+                    ItemCard(
+                      imagePath: 'drill.png',
+                      title: 'KCT Hammer Drill',
+                      price: '3,999.00 PHP',
+                    ),
+                    ItemCard(
+                      imagePath: 'hammer.png',
+                      title: 'Pein Hammer 16oz',
+                      price: '308.00 PHP',
+                    ),
+                    ItemCard(
+                      imagePath: 'chopsaw.png',
+                      title: 'Chopesaw 2 4KW',
+                      price: '10,994.00 PHP',
+                    ),
+                    ItemCard(
+                      imagePath: 'screw.jpg',
+                      title: 'Gypsum Screw 1 in',
+                      price: '0.45 PHP',
+                    ),
+                    // Add more ItemCard widgets as needed
+                  ],
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text(
+                  "",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            SliverStaggeredGrid.countBuilder(
+              crossAxisCount: 2,
+              itemCount: staggeredItems.length,
+              itemBuilder: (BuildContext context, int index) {
+                final item = staggeredItems[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ItemDetails(
+                          imagePath: item['imagePath']!,
+                          title: item['title']!,
+                          price: item['price']!,
+                        ),
+                      ),
+                    );
                   },
-                  children: [
-                    _buildSaleContainer(
-                      context,
-                      'SUPER SALE\nJuly 16 - 24, 2024\n10 am - 10 pm',
-                      'plywood.jpg',
-                      '350.00 PHP',
-                    ),
-                    _buildSaleContainer(
-                      context,
-                      'MEGA SALE\nAugust 1 - 10, 2024\n9 am - 8 pm',
-                      'hallowblocks.jpg',
-                      '700.00 PHP',
-                    ),
-                    _buildSaleContainer(
-                      context,
-                      'FLASH SALE\nSeptember 5 - 15, 2024\n11 am - 9 pm',
-                      'trimrib.png',
-                      '251.00 PHP',
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(3, (index) {
-                  return AnimatedContainer(
-                    duration: Duration(milliseconds: 300),
-                    margin: EdgeInsets.symmetric(horizontal: 4.0),
-                    height: 8.0,
-                    width: _currentPage == index ? 12.0 : 8.0,
-                    decoration: BoxDecoration(
-                      color: _currentPage == index
-                          ? Colors.grey
-                          : Colors.grey.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                  );
-                }),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20, left: 10, right: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Roofing Materials',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'View All',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 250,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: const [
-                    ItemCard(
-                      imagePath: 'trimrib.png',
-                      title: 'HUU Trim Rib',
-                      price: '251.00 PHP',
-                    ),
-                    ItemCard(
-                      imagePath: 'corrugated.png',
-                      title: 'HUU Corrugated',
-                      price: '334.00 PHP',
-                    ),
-                    ItemCard(
-                      imagePath: 'ribtype.png',
-                      title: 'Seymour Ribtype',
-                      price: '1,533.00 PHP',
-                    ),
-                    ItemCard(
-                      imagePath: 'ceilingtype.jpg',
-                      title: 'PVC Ceiling Panel',
-                      price: '390.00 PHP',
-                    ),
-                    ItemCard(
-                      imagePath: 'longspan.jpg',
-                      title: 'Longspan Ribtype ',
-                      price: '560.00 PHP',
-                    ),
-                    // Add more ItemCard widgets as needed
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20, left: 10, right: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Roofing Materials',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'View All',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 250,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: const [
-                    ItemCard(
-                      imagePath: 'trimrib.png',
-                      title: 'HUU Trim Rib',
-                      price: '251.00 PHP',
-                    ),
-                    ItemCard(
-                      imagePath: 'corrugated.png',
-                      title: 'HUU Corrugated',
-                      price: '334.00 PHP',
-                    ),
-                    ItemCard(
-                      imagePath: 'ribtype.png',
-                      title: 'Seymour Ribtype',
-                      price: '1,533.00 PHP',
-                    ),
-                    ItemCard(
-                      imagePath: 'ceilingtype.jpg',
-                      title: 'PVC Ceiling Panel',
-                      price: '390.00 PHP',
-                    ),
-                    ItemCard(
-                      imagePath: 'longspan.jpg',
-                      title: 'Longspan Ribtype ',
-                      price: '560.00 PHP',
-                    ),
-                    // Add more ItemCard widgets as needed
-                  ],
-                ),
-              ),
-            ],
-          ),
+                  child: StaggeredItemCard(
+                    imagePath: item['imagePath']!,
+                    title: item['title']!,
+                    price: item['price']!,
+                  ),
+                );
+              },
+              staggeredTileBuilder: (int index) =>
+                  StaggeredTile.extent(1, 250), // Adjust height as needed
+              mainAxisSpacing: 8.0,
+              crossAxisSpacing: 8.0,
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildSaleContainer(
-      BuildContext context, String text, String imagePath, String price) {
+  Widget _buildSaleContainer(String imagePath) {
     return Container(
-      color: const Color.fromARGB(255, 105, 83, 42),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              color: const Color.fromARGB(255, 105, 83, 42),
-              child: Center(
-                child: Text.rich(
-                  TextSpan(
-                    text: text,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-          Flexible(
-            flex: 1,
-            child: Container(
-              height: 150,
-              width: 125,
-              color: const Color.fromARGB(255, 19, 13, 0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image(
-                    height: 85,
-                    image: AssetImage(imagePath),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    price,
-                    style: TextStyle(color: Colors.white, fontSize: 11),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(width: 10),
-        ],
+      color: const Color.fromARGB(255, 105, 42, 42),
+      child: Center(
+        child: Image.asset(
+          imagePath,
+          fit: BoxFit.cover,
+          height: double.infinity,
+          width: double.infinity,
+        ),
       ),
     );
   }
@@ -355,6 +412,91 @@ class ItemCard extends StatelessWidget {
       },
       child: Container(
         width: 160,
+        margin: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 255, 255, 255),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              height: 160,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+                image: DecorationImage(
+                  image: AssetImage(imagePath),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                price,
+                style: const TextStyle(
+                  color: Color.fromARGB(255, 155, 151, 151),
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class StaggeredItemCard extends StatelessWidget {
+  final String imagePath;
+  final String title;
+  final String price;
+
+  const StaggeredItemCard({
+    super.key,
+    required this.imagePath,
+    required this.title,
+    required this.price,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ItemDetails(
+              title: title,
+              imagePath: imagePath,
+              price: price,
+            ),
+          ),
+        );
+      },
+      child: Container(
         margin: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 255, 255, 255),

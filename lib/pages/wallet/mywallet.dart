@@ -22,8 +22,18 @@ class Wallet extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Wallet'),
-        backgroundColor: Colors.teal,
+        title: Text(
+          'HW WALLET',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18.0,
+            color: Color.fromRGBO(207, 178, 135, 1),
+          ),
+        ),
+        backgroundColor: Color.fromRGBO(2, 8, 75, 1),
+        iconTheme: IconThemeData(
+          color: Color.fromRGBO(207, 178, 135, 1),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -35,6 +45,7 @@ class Wallet extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
+              color: Color.fromRGBO(240, 240, 240, 1),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -53,7 +64,7 @@ class Wallet extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
-                        color: Colors.green,
+                        color: Color.fromRGBO(207, 178, 135, 1),
                       ),
                     ),
                     SizedBox(height: 20.0),
@@ -67,13 +78,15 @@ class Wallet extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
+                        backgroundColor: Color.fromRGBO(2, 8, 75, 1),
                         padding: EdgeInsets.symmetric(vertical: 12.0),
                       ),
                       child: Center(
                         child: Text(
                           'Cash In',
-                          style: TextStyle(fontSize: 16.0),
+                          style: TextStyle(
+                              color: Color.fromRGBO(207, 178, 135, 1),
+                              fontSize: 16.0),
                         ),
                       ),
                     ),
@@ -154,39 +167,58 @@ class Wallet extends StatelessWidget {
   }
 }
 
+final Color textColor = Color.fromRGBO(2, 8, 75, 1);
+
 class CashInDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Text('Select Cash In Method'),
+      title: Text(
+        'Select Cash In Method',
+        style: TextStyle(
+          color: textColor, // Use the defined color
+        ),
+      ),
       children: [
         ListTile(
-          leading: Icon(Icons.wallet_travel),
-          title: Text('E-Wallet'),
+          leading: Icon(Icons.wallet_travel, color: textColor), // Icon color
+          title: Text(
+            'E-Wallet',
+            style: TextStyle(color: textColor), // Text color
+          ),
           onTap: () {
             // Handle E-Wallet payment
             Navigator.of(context).pop();
           },
         ),
         ListTile(
-          leading: Icon(Icons.account_balance),
-          title: Text('Online Banking'),
+          leading: Icon(Icons.account_balance, color: textColor), // Icon color
+          title: Text(
+            'Online Banking',
+            style: TextStyle(color: textColor), // Text color
+          ),
           onTap: () {
             // Handle Online Banking payment
             Navigator.of(context).pop();
           },
         ),
         ListTile(
-          leading: Icon(Icons.store),
-          title: Text('Over the Counter'),
+          leading: Icon(Icons.store, color: textColor), // Icon color
+          title: Text(
+            'Over the Counter',
+            style: TextStyle(color: textColor), // Text color
+          ),
           onTap: () {
             // Handle Over the Counter payment
             Navigator.of(context).pop();
           },
         ),
         ListTile(
-          leading: Icon(Icons.more_horiz),
-          title: Text('Other Methods'),
+          leading: Icon(Icons.more_horiz, color: textColor), // Icon color
+          title: Text(
+            'Other Methods',
+            style: TextStyle(color: textColor), // Text color
+          ),
           onTap: () {
             // Handle Other payment methods
             Navigator.of(context).pop();

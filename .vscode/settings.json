@@ -3,5 +3,16 @@
   "liveshare.allowGuestDebugControl": true,
   "liveshare.languages.allowGuestCommandControl": true,
   "liveshare.notebooks.allowGuestExecuteCells": true,
-  "cSpell.words": ["Hometab", "justinflores", "mywallet"]
+  "cSpell.words": [
+    "Agena",
+    "gdcc",
+    "Hometab",
+    "itemcardwidget",
+    "justinflores",
+    "mywallet",
+    "navigationstate",
+    "RGBO",
+    "Robart",
+    "Starken"
+  ]
 }

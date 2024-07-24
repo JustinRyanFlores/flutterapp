@@ -32,18 +32,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Profile'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              icon: const Icon(Icons.check),
-              onPressed: () {
-                // Implement save functionality
-              },
-            ),
+        title: const Text(
+          'MY PROFILE',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18.0,
+            color: Color.fromRGBO(207, 178, 135, 1),
           ),
-        ],
+        ),
+        backgroundColor: Color.fromRGBO(2, 8, 75, 1),
+        iconTheme: IconThemeData(
+          color: Color.fromRGBO(207, 178, 135, 1),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -56,15 +56,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // Profile Image Container
         Center(
           child: Container(
             width: 120,
             height: 120,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.grey[200],
-              // Example image decoration, you can replace this with your logic
+              color: Color.fromRGBO(60, 62, 90, 1),
               image: const DecorationImage(
                 image: AssetImage('sampleprofile.png'),
                 fit: BoxFit.cover,
@@ -73,23 +71,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
         ),
         const SizedBox(height: 20),
-        // Username
         TextFormField(
           style: TextStyle(
-            color: Colors.black, // Text color
+            color: Color.fromARGB(174, 0, 0, 0),
           ),
-          cursorColor: Colors.blue, // Cursor color
+          cursorColor: Color.fromRGBO(2, 8, 75, 1),
           decoration: const InputDecoration(
             labelText: 'Username',
             labelStyle: TextStyle(
-              color: Colors.grey, // Label color
+              color: Color.fromRGBO(60, 62, 90, 1),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey), // Underline color
+              borderSide: BorderSide(color: Color.fromRGBO(60, 62, 90, 1)),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: Colors.blue), // Focused underline color
+              borderSide: BorderSide(color: Color.fromRGBO(2, 8, 75, 1)),
             ),
           ),
         ),
@@ -97,42 +93,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
         // Name
         TextFormField(
           style: TextStyle(
-            color: Colors.black, // Text color
+            color: Color.fromARGB(174, 0, 0, 0),
           ),
-          cursorColor: Colors.blue, // Cursor color
+          cursorColor: Color.fromRGBO(2, 8, 75, 1),
           decoration: const InputDecoration(
             labelText: 'Name',
             labelStyle: TextStyle(
-              color: Colors.grey, // Label color
+              color: Color.fromRGBO(60, 62, 90, 1),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey), // Underline color
+              borderSide: BorderSide(color: Color.fromRGBO(60, 62, 90, 1)),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: Colors.blue), // Focused underline color
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        // Bio
-        TextFormField(
-          style: TextStyle(
-            color: Colors.black, // Text color
-          ),
-          cursorColor: Colors.blue, // Cursor color
-          maxLines: 3,
-          decoration: InputDecoration(
-            labelText: 'Bio',
-            labelStyle: TextStyle(
-              color: Colors.grey, // Label color
-            ),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey), // Underline color
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: Colors.blue), // Focused underline color
+              borderSide: BorderSide(color: Color.fromRGBO(2, 8, 75, 1)),
             ),
           ),
         ),
@@ -147,21 +120,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
               readOnly: true,
               controller: TextEditingController(text: _selectedGender),
               style: TextStyle(
-                color: Colors.black, // Text color
+                color: Color.fromARGB(174, 0, 0, 0),
               ),
-              cursorColor: Colors.blue, // Cursor color
+              cursorColor: Color.fromRGBO(2, 8, 75, 1),
               decoration: const InputDecoration(
                 labelText: 'Gender',
                 labelStyle: TextStyle(
-                  color: Colors.grey, // Label color
+                  color: Color.fromRGBO(60, 62, 90, 1),
                 ),
                 enabledBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Colors.blueGrey), // Underline color
+                  borderSide: BorderSide(color: Color.fromRGBO(60, 62, 90, 1)),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Colors.blue), // Focused underline color
+                  borderSide: BorderSide(color: Color.fromRGBO(2, 8, 75, 1)),
                 ),
               ),
             ),
@@ -177,21 +148,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
             child: TextFormField(
               controller: _birthdayController,
               style: TextStyle(
-                color: Colors.black, // Text color
+                color: Color.fromARGB(174, 0, 0, 0),
               ),
-              cursorColor: Colors.blue, // Cursor color
+              cursorColor: Color.fromRGBO(2, 8, 75, 1),
               decoration: const InputDecoration(
                 labelText: 'Birthday',
                 labelStyle: TextStyle(
-                  color: Colors.grey, // Label color
+                  color: Color.fromRGBO(60, 62, 90, 1),
                 ),
                 enabledBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Colors.blueGrey), // Underline color
+                  borderSide: BorderSide(color: Color.fromRGBO(60, 62, 90, 1)),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Colors.blue), // Focused underline color
+                  borderSide: BorderSide(color: Color.fromRGBO(2, 8, 75, 1)),
                 ),
               ),
             ),
@@ -201,20 +170,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
         // Phone Number
         TextFormField(
           style: TextStyle(
-            color: Colors.black, // Text color
+            color: Color.fromARGB(174, 0, 0, 0),
           ),
-          cursorColor: Colors.blue, // Cursor color
+          cursorColor: Color.fromRGBO(2, 8, 75, 1),
           decoration: const InputDecoration(
             labelText: 'Phone Number',
             labelStyle: TextStyle(
-              color: Colors.grey, // Label color
+              color: Color.fromRGBO(60, 62, 90, 1),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey), // Underline color
+              borderSide: BorderSide(color: Color.fromRGBO(60, 62, 90, 1)),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: Colors.blue), // Focused underline color
+              borderSide: BorderSide(color: Color.fromRGBO(2, 8, 75, 1)),
             ),
           ),
         ),
@@ -222,25 +190,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
         // Email
         TextFormField(
           style: TextStyle(
-            color: Colors.black, // Text color
+            color: Color.fromARGB(174, 0, 0, 0),
           ),
-          cursorColor: Colors.blue, // Cursor color
+          cursorColor: Color.fromRGBO(2, 8, 75, 1),
           decoration: const InputDecoration(
             labelText: 'Email',
             labelStyle: TextStyle(
-              color: Colors.grey, // Label color
+              color: Color.fromRGBO(60, 62, 90, 1),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey), // Underline color
+              borderSide: BorderSide(color: Color.fromRGBO(60, 62, 90, 1)),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: Colors.blue), // Focused underline color
+              borderSide: BorderSide(color: Color.fromRGBO(2, 8, 75, 1)),
             ),
           ),
         ),
         const SizedBox(height: 12),
-        // Password
+
         InkWell(
           onTap: () {
             _showPasswordEditDialog(context);
@@ -251,19 +218,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
               obscureText: true,
               controller: _passwordFieldController,
               style: TextStyle(
-                color: Colors.black,
+                color: Color.fromARGB(174, 0, 0, 0),
               ),
-              cursorColor: Colors.blue,
+              cursorColor: Color.fromRGBO(2, 8, 75, 1),
               decoration: const InputDecoration(
                 labelText: 'Password',
                 labelStyle: TextStyle(
-                  color: Colors.grey,
+                  color: Color.fromRGBO(60, 62, 90, 1),
                 ),
                 enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey),
+                  borderSide: BorderSide(color: Color.fromRGBO(60, 62, 90, 1)),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue),
+                  borderSide: BorderSide(color: Color.fromRGBO(2, 8, 75, 1)),
                 ),
               ),
             ),
@@ -272,10 +239,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
         const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () {
-            // Implement save functionality
+            Navigator.pop(context);
           },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromRGBO(2, 8, 75, 1),
+            foregroundColor: Color.fromRGBO(207, 178, 135, 1),
+            textStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15.0,
+            ),
+          ),
           child: const Text('Save Changes'),
-        ),
+        )
       ],
     );
   }
@@ -286,15 +261,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
-      // Customize the theme of the date picker dialog
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            // Change colors here
-            primaryColor: Colors.blue, // Headings and buttons
-            hintColor:
-                const Color.fromARGB(255, 33, 243, 86), // Selection color
-            colorScheme: ColorScheme.light(primary: Colors.blue),
+            primaryColor: Color.fromRGBO(2, 8, 75, 1),
+            hintColor: const Color.fromARGB(255, 33, 243, 86),
+            colorScheme:
+                ColorScheme.light(primary: Color.fromRGBO(2, 8, 75, 1)),
             buttonTheme: ButtonThemeData(
               textTheme: ButtonTextTheme.primary,
             ),
@@ -318,11 +291,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0), // Smaller box radius
+            borderRadius: BorderRadius.circular(10.0),
           ),
           title: const Text(
             'Select Gender',
-            style: TextStyle(fontSize: 20), // Larger text size
+            style: TextStyle(fontSize: 20),
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -330,7 +303,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ListTile(
                 title: const Text(
                   'Male',
-                  style: TextStyle(fontSize: 18), // Larger text size
+                  style: TextStyle(fontSize: 18),
                 ),
                 onTap: () {
                   setState(() {
@@ -342,7 +315,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ListTile(
                 title: const Text(
                   'Female',
-                  style: TextStyle(fontSize: 18), // Larger text size
+                  style: TextStyle(fontSize: 18),
                 ),
                 onTap: () {
                   setState(() {
@@ -354,7 +327,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ListTile(
                 title: const Text(
                   'Other',
-                  style: TextStyle(fontSize: 18), // Larger text size
+                  style: TextStyle(fontSize: 18),
                 ),
                 onTap: () {
                   setState(() {
@@ -380,11 +353,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
           builder: (BuildContext context, StateSetter setState) {
             return AlertDialog(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0), // Smaller box radius
+                borderRadius: BorderRadius.circular(10.0),
               ),
               title: const Text(
                 'Edit Password',
-                style: TextStyle(fontSize: 20), // Larger text size
+                style: TextStyle(fontSize: 20),
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -395,12 +368,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     decoration: const InputDecoration(
                       labelText: 'New Password',
                       enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.blueGrey), // Underline color
+                        borderSide:
+                            BorderSide(color: Color.fromRGBO(60, 62, 90, 1)),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.blue), // Focused underline color
+                        borderSide:
+                            BorderSide(color: Color.fromRGBO(2, 8, 75, 1)),
                       ),
                     ),
                   ),
@@ -411,12 +384,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     decoration: const InputDecoration(
                       labelText: 'Confirm Password',
                       enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.blueGrey), // Underline color
+                        borderSide:
+                            BorderSide(color: Color.fromRGBO(60, 62, 90, 1)),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.blue), // Focused underline color
+                        borderSide:
+                            BorderSide(color: Color.fromRGBO(2, 8, 75, 1)),
                       ),
                     ),
                   ),
@@ -431,14 +404,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
               actions: <Widget>[
                 TextButton(
                   child: const Text(
-                      style: const TextStyle(color: Colors.red), 'Cancel'),
+                      style:
+                          const TextStyle(color: Color.fromRGBO(2, 8, 75, 1)),
+                      'Cancel'),
                   onPressed: () {
                     Navigator.pop(context);
                   },
                 ),
                 TextButton(
                   child: const Text(
-                      style: const TextStyle(color: Colors.red), 'Save'),
+                      style:
+                          const TextStyle(color: Color.fromRGBO(2, 8, 75, 1)),
+                      'Save'),
                   onPressed: () {
                     if (_passwordController.text ==
                         _confirmPasswordController.text) {
@@ -446,7 +423,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         _password = _passwordController.text;
                         _passwordFieldController.text =
                             _passwordController.text;
-                        _passwordError = ''; // Clear error message
+                        _passwordError = '';
                       });
                       Navigator.pop(context);
                     } else {

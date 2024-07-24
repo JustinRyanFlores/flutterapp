@@ -10,41 +10,55 @@ class Credit extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Credit / Loan'),
-          backgroundColor: Colors.teal,
+          title: Text(
+            'HW CREDITS',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18.0,
+              color: Color.fromRGBO(207, 178, 135, 1),
+            ),
+          ),
+          backgroundColor: Color.fromRGBO(2, 8, 75, 1),
+          iconTheme: IconThemeData(
+            color: Color.fromRGBO(207, 178, 135, 1),
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Card(
-                elevation: 4.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Available Credit',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
+              Align(
+                alignment: Alignment.center,
+                child: Card(
+                  elevation: 4.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  color: Color.fromRGBO(240, 240, 240, 1),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Available Credit',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 10.0),
-                      Text(
-                        '₱50,000.00',
-                        style: TextStyle(
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
+                        SizedBox(height: 10.0),
+                        Text(
+                          '₱50,000.00',
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromRGBO(207, 178, 135, 1),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -54,8 +68,8 @@ class Credit extends StatelessWidget {
                   Tab(text: 'Bills'),
                   Tab(text: 'Transactions'),
                 ],
-                indicatorColor: Colors.teal,
-                labelColor: Colors.teal,
+                indicatorColor: Color.fromRGBO(2, 8, 75, 1),
+                labelColor: Color.fromRGBO(2, 8, 75, 1),
               ),
               SizedBox(height: 10.0),
               Expanded(
@@ -78,9 +92,9 @@ class Credit extends StatelessWidget {
                     viewportFraction: 0.8,
                   ),
                   items: [
-                    'assets/ad1.png',
-                    'assets/ad2.png',
-                    'assets/ad3.png',
+                    'ad0.png',
+                    'ad1.png',
+                    'ad2.png',
                   ].map((i) {
                     return Builder(
                       builder: (BuildContext context) {
@@ -88,7 +102,7 @@ class Credit extends StatelessWidget {
                           width: MediaQuery.of(context).size.width,
                           margin: EdgeInsets.symmetric(horizontal: 5.0),
                           decoration: BoxDecoration(
-                            color: Colors.amber,
+                            color: Color.fromRGBO(2, 8, 75, 1),
                           ),
                           child: Image.asset(i, fit: BoxFit.cover),
                         );
