@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'check_out.dart';
+import 'store_page.dart';
 
 class ItemDetails extends StatefulWidget {
   final String title;
@@ -194,7 +195,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                       style: TextStyle(color: Colors.white, fontSize: 13),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 105, 83, 42),
+                      backgroundColor: const Color.fromRGBO(2, 8, 75, 1),
                     ),
                   ),
                 ),
@@ -213,20 +214,25 @@ class _ItemDetailsState extends State<ItemDetails> {
                       style: TextStyle(color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 19, 13, 0),
+                      backgroundColor: Color.fromRGBO(2, 8, 75, 1),
                     ),
                   ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Store(storeName: '',)),
+                      );
+                    },
                     child: const Text(
                       'Store',
                       style: TextStyle(color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 122, 83, 31),
+                      backgroundColor: Color.fromARGB(255, 19, 13, 0),
                     ),
                   ),
                 ),
