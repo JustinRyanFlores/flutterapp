@@ -26,7 +26,7 @@
       </ul>
     </li>
     <li>
-      <a href="#references">Acknowledgments</a>
+      <a href="#references">References</a>
     </li>
   </ol>
 </details>
