@@ -23,8 +23,8 @@ class _ChangeAddressState extends State<ChangeAddress> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Address Selection',
-          style: TextStyle(color: Color.fromRGBO(207,178,135, 1) ),
+          'ADDRESS SELECTION',
+         style: TextStyle(color:Color.fromRGBO(207,178,135, 1),fontSize: 18,fontWeight: FontWeight.bold),
         ),
         iconTheme: const IconThemeData(color: Color.fromRGBO(207,178,135, 1) ),
         backgroundColor:Color.fromRGBO(2, 8, 75, 1),

@@ -26,9 +26,9 @@ class ShopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // List of top product names
     final List<String> topProductNames = [
-      'Top Product A',
-      'Top Product B',
-      'Top Product C',
+      'PVC Ceiling Panel',
+      'HUU Corrugated',
+      'HUU Trim Rib',
     ];
 
     // List of top product image paths

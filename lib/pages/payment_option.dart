@@ -15,7 +15,7 @@ class _PaymentOptionsState extends State<PaymentOptions> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Payment Method', style: TextStyle(color: Color.fromRGBO(207,178,135, 1))),
+        title: const Text('PAYMENT METHOD', style: TextStyle(color:Color.fromRGBO(207,178,135, 1),fontSize: 18,fontWeight: FontWeight.bold)),
         backgroundColor:Color.fromRGBO(2, 8, 75, 1),
         iconTheme: const IconThemeData(color: Color.fromRGBO(207,178,135, 1)),
         elevation: 4.0,

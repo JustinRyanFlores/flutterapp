@@ -69,7 +69,7 @@ class _CartState extends State<Cart> {
       appBar: AppBar(
         toolbarHeight: 70,
         title:
-            const Text('Shopping Cart', style: TextStyle(color:Color.fromRGBO(207,178,135, 1))),
+            const Text('SHOPPING CART', style: TextStyle(color:Color.fromRGBO(207,178,135, 1),fontSize: 18,fontWeight: FontWeight.bold)),
         backgroundColor: Color.fromRGBO(2, 8, 75, 1),
          iconTheme: const IconThemeData(color: Color.fromRGBO(207,178,135, 1)),
       ),

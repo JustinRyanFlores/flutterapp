@@ -12,8 +12,8 @@ class Checkout extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Checkout',
-          style: TextStyle(color: Color.fromRGBO(207,178,135, 1)),
+          'CHECKOUT',
+          style: TextStyle(color:Color.fromRGBO(207,178,135, 1),fontSize: 18,fontWeight: FontWeight.bold),
         ),
         iconTheme: IconThemeData(color:Color.fromRGBO(207,178,135, 1)),
         backgroundColor: Color.fromRGBO(2, 8, 75, 1),
