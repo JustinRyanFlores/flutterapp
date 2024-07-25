@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:test_dev/message.dart';
-import 'cart.dart';
 import 'purchases/cancelled.dart';
 import 'purchases/awaiting_payment.dart';
 import 'purchases/pending_shipment.dart';
