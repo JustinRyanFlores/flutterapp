@@ -5,9 +5,6 @@ import 'pages/cart.dart';
 import 'pages/item_details.dart';
 import 'pages/search_page.dart';
 
-
-
-
 void main() => runApp(const MaterialApp(home: Home()));
 
 class Home extends StatefulWidget {
@@ -90,6 +87,7 @@ class _HomeState extends State<Home> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           toolbarHeight: 70,
           title: Row(
             children: [
@@ -131,15 +129,16 @@ class _HomeState extends State<Home> {
           ),
           actions: [
             IconButton(
-              icon:
-                  const Icon(Icons.shopping_cart_outlined, color: Color.fromRGBO(207, 178, 135, 1)),
+              icon: const Icon(Icons.shopping_cart_outlined,
+                  color: Color.fromRGBO(207, 178, 135, 1)),
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Cart()),
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.chat_outlined, color: Color.fromRGBO(207, 178, 135, 1)),
+              icon: const Icon(Icons.chat_outlined,
+                  color: Color.fromRGBO(207, 178, 135, 1)),
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Message()),
@@ -147,7 +146,6 @@ class _HomeState extends State<Home> {
             ),
           ],
           backgroundColor: Color.fromRGBO(2, 8, 75, 1),
-          
         ),
         body: CustomScrollView(
           slivers: [

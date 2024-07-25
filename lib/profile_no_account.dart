@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:test_dev/login.dart';
 import 'package:test_dev/main.dart';
 import 'pages/wallet/mywallet.dart';
 import 'pages/wallet/credit.dart';
@@ -9,9 +11,7 @@ import 'pages/my_profile.dart';
 import 'pages/cart.dart';
 import 'pages/wallet/vouchers.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
-
+class ProfileNoAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -20,6 +20,7 @@ class Profile extends StatelessWidget {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(2, 8, 75, 1),
+          automaticallyImplyLeading: false,
           title: Row(
             children: [
               Padding(
@@ -104,67 +105,60 @@ class Profile extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EditProfilePage()),
-                        );
-                      },
-                      child: Row(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: CircleAvatar(
-                              radius: 30.0,
-                              backgroundImage: AssetImage('sampleprofile.png'),
-                            ),
+                    Row(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: CircleAvatar(
+                            radius: 30.0,
+                            backgroundImage: AssetImage('sampleprofile.png'),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            EditProfilePage()),
-                                  );
-                                },
-                                child: const Text(
-                                  'User_Sample_Name',
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(207, 178, 135, 1),
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Guest User',
+                              style: TextStyle(
+                                color: Color.fromRGBO(207, 178, 135, 1),
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage()),
+                                );
+                              },
+                              child: const Text(
+                                'Log in to access more features',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(207, 178, 135, 1),
+                                  fontSize: 10.0,
                                 ),
                               ),
-                              const Row(
-                                children: [
-                                  Text(
-                                    '3 Followers',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(207, 178, 135, 1),
-                                      fontSize: 10.0,
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    '28 Following',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(207, 178, 135, 1),
-                                      fontSize: 10.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Color.fromRGBO(2, 8, 75, 1),
+                            backgroundColor: Color.fromRGBO(207, 178, 135, 1),
                           ),
-                        ],
-                      ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()),
+                            );
+                          },
+                          child: Text('Login or Sign Up'),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -214,7 +208,7 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) => LoginPage()),
                               );
                             },
                             child: const Column(
@@ -238,7 +232,7 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) => LoginPage()),
                               );
                             },
                             child: const Column(
@@ -262,7 +256,7 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) => LoginPage()),
                               );
                             },
                             child: const Column(
@@ -286,7 +280,7 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) => LoginPage()),
                               );
                             },
                             child: const Column(
@@ -355,12 +349,12 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Wallet()),
+                                    builder: (context) => LoginPage()),
                               );
                             },
                             child: const Column(
                               children: [
-                                Icon(Icons.wallet,
+                                Icon(Icons.account_balance_wallet_outlined,
                                     color: Color.fromARGB(174, 0, 0, 0)),
                                 SizedBox(height: 5.0),
                                 Text(
@@ -370,13 +364,6 @@ class Profile extends StatelessWidget {
                                     fontSize: 14.0,
                                   ),
                                 ),
-                                Text(
-                                  '₱ 3023.22',
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(207, 178, 135, 1),
-                                    fontSize: 14.0,
-                                  ),
-                                ),
                               ],
                             ),
                           ),
@@ -386,30 +373,21 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      Wallet(showCashInDialog: true),
-                                ),
+                                    builder: (context) => LoginPage()),
                               );
                             },
                             child: const Column(
                               children: [
-                                Icon(Icons.add_circle_outline,
+                                Icon(Icons.credit_card_outlined,
                                     color: Color.fromARGB(174, 0, 0, 0)),
                                 SizedBox(height: 5.0),
                                 Text(
-                                  'Funds',
+                                  'Cards',
                                   style: TextStyle(
                                     color: Color.fromARGB(174, 0, 0, 0),
                                     fontSize: 14.0,
                                   ),
                                 ),
-                                Text(
-                                  'Add Funds!',
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(207, 178, 135, 1),
-                                    fontSize: 14.0,
-                                  ),
-                                ),
                               ],
                             ),
                           ),
@@ -419,47 +397,12 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Credit()),
+                                    builder: (context) => LoginPage()),
                               );
                             },
                             child: const Column(
                               children: [
-                                Icon(Icons.credit_card,
-                                    color: Color.fromARGB(174, 0, 0, 0)),
-                                SizedBox(height: 5.0),
-                                Column(
-                                  children: [
-                                    Text(
-                                      'Credit',
-                                      style: TextStyle(
-                                        color: Color.fromARGB(174, 0, 0, 0),
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                    Text(
-                                      '₱ 4563.12',
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(207, 178, 135, 1),
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 10.0),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => VoucherPage()),
-                              );
-                            },
-                            child: const Column(
-                              children: [
-                                Icon(Icons.local_activity,
+                                Icon(Icons.card_giftcard_outlined,
                                     color: Color.fromARGB(174, 0, 0, 0)),
                                 SizedBox(height: 5.0),
                                 Text(
@@ -469,10 +412,27 @@ class Profile extends StatelessWidget {
                                     fontSize: 14.0,
                                   ),
                                 ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 10.0),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()),
+                              );
+                            },
+                            child: const Column(
+                              children: [
+                                Icon(Icons.local_activity_outlined,
+                                    color: Color.fromARGB(174, 0, 0, 0)),
+                                SizedBox(height: 5.0),
                                 Text(
-                                  '37 Vouchers',
+                                  'Rewards',
                                   style: TextStyle(
-                                    color: Color.fromRGBO(207, 178, 135, 1),
+                                    color: Color.fromARGB(174, 0, 0, 0),
                                     fontSize: 14.0,
                                   ),
                                 ),
@@ -485,176 +445,43 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Divider(color: Colors.transparent, height: 10),
-              // Activities (Custom Grid View)
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                    top: BorderSide(
-                      color: Colors.grey,
-                      width: 0.5,
-                    ),
-                    bottom: BorderSide(
-                      color: Colors.grey,
-                      width: 0.5,
-                    ),
+              const Divider(color: Colors.transparent, height: 200),
+              // Ads
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    height: 150.0,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 4),
+                    enlargeCenterPage: true,
+                    aspectRatio: 16 / 9,
+                    viewportFraction: 0.8,
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 5.0,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                padding: const EdgeInsets.only(bottom: 30, left: 16, right: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: Text(
-                          'My Activities',
-                          style: const TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(174, 0, 0, 0),
+                  items: [
+                    'ad0.png',
+                    'ad1.png',
+                    'ad2.png',
+                  ].map((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(2, 8, 75, 1),
                           ),
-                        ),
-                      ),
-                    ),
-                    GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 8.0,
-                        crossAxisSpacing: 8.0,
-                        childAspectRatio: 2.0,
-                      ),
-                      itemCount: activityNames.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            navigateToActivityPage(activityNames[index]);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  activityIcons[index],
-                                  size: 24.0,
-                                  color: Color.fromARGB(174, 0, 0, 0),
-                                ),
-                                const SizedBox(height: 8.0),
-                                Text(
-                                  activityNames[index],
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 12.0,
-                                    color: Color.fromARGB(174, 0, 0, 0),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          child: Image.asset(i, fit: BoxFit.cover),
                         );
                       },
-                    ),
-                  ],
+                    );
+                  }).toList(),
                 ),
               ),
-
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Divider(
-                            color: Color.fromARGB(174, 0, 0, 0),
-                            thickness: 1,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text(
-                            "You May Also Like",
-                            style: TextStyle(
-                              color: Color.fromARGB(174, 0, 0, 0),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            color: Color.fromARGB(174, 0, 0, 0),
-                            thickness: 1,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Divider(color: Colors.transparent, height: 10),
-              Container()
             ],
           ),
         ),
       ),
     );
-  }
-}
-
-List<String> activityNames = [
-  'Favorites',
-  'Recently Viewed',
-  'Buy Again',
-  'Rewards',
-  'Customer Support',
-];
-
-final List<IconData> activityIcons = [
-  Icons.favorite,
-  Icons.history,
-  Icons.shopping_cart,
-  Icons.card_giftcard,
-  Icons.support_agent,
-];
-
-// Activity Page Navigation
-void navigateToActivityPage(String activityName) {
-  // Perform navigation or action based on activity name
-  switch (activityName) {
-    case 'Favorites':
-      // Navigate to Favorites page or perform corresponding action
-      break;
-    case 'Recently Viewed':
-      // Navigate to Recently Viewed page or perform corresponding action
-      break;
-    case 'Buy Again':
-      // Navigate to Buy Again page or perform corresponding action
-      break;
-    case 'Rewards':
-      // Navigate to Rewards page or perform corresponding action
-      break;
-    case 'Customer Support':
-      // Navigate to Customer Support page or perform corresponding action
-      break;
-    default:
-      break;
   }
 }

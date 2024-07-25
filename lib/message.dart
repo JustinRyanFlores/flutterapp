@@ -25,9 +25,7 @@ class Message extends StatelessWidget {
       body: Column(
         children: [
           SearchBox(
-            onChanged: (value) {
-              // Handle search logic
-            },
+            onChanged: (value) {},
           ),
           Expanded(
             child: ListViewBuilderWithSearch(),
@@ -336,7 +334,7 @@ class ChatMessage extends StatelessWidget {
         child: Text(
           message,
           style: TextStyle(
-              color: isSent ? Color.fromRGBO(207,178,135, 1) : Colors.black),
+              color: isSent ? Color.fromRGBO(207, 178, 135, 1) : Colors.black),
         ),
       ),
     );

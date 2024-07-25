@@ -7,6 +7,7 @@ import 'package:test_dev/pages/activities/recently.dart';
 import 'package:test_dev/pages/activities/rewards.dart';
 import 'package:test_dev/pages/activities/support.dart';
 import 'package:test_dev/main.dart';
+import 'package:test_dev/pages/settings.dart';
 import 'pages/wallet/mywallet.dart';
 import 'pages/wallet/credit.dart';
 import 'pages/my_purchases.dart';
@@ -53,6 +54,7 @@ class Profile extends StatelessWidget {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: const Color.fromRGBO(2, 8, 75, 1),
           title: Row(
             children: [
@@ -101,13 +103,18 @@ class Profile extends StatelessWidget {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 70.0, top: 8.0),
+              padding: const EdgeInsets.only(bottom: 8.0, top: 8.0),
               child: IconButton(
                 icon: const Icon(
                   Icons.settings_outlined,
                   color: Color.fromRGBO(207, 178, 135, 1),
                 ),
-                onPressed: () => {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Settings()),
+                  );
+                },
               ),
             ),
             IconButton(
@@ -248,7 +255,9 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                  builder: (context) =>
+                                      const MyPurchases(initialIndex: 0),
+                                ),
                               );
                             },
                             child: const Column(
@@ -272,7 +281,8 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) =>
+                                        const MyPurchases(initialIndex: 1)),
                               );
                             },
                             child: const Column(
@@ -296,7 +306,8 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) =>
+                                        const MyPurchases(initialIndex: 2)),
                               );
                             },
                             child: const Column(
@@ -320,7 +331,8 @@ class Profile extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyPurchases()),
+                                    builder: (context) =>
+                                        const MyPurchases(initialIndex: 3)),
                               );
                             },
                             child: const Column(
@@ -733,4 +745,3 @@ void navigateToActivityPage(BuildContext context, String activityName) {
       break;
   }
 }
-

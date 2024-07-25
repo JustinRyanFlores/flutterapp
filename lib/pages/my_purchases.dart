@@ -28,12 +28,15 @@ class MyApp extends StatelessWidget {
 }
 
 class MyPurchases extends StatelessWidget {
-  const MyPurchases({super.key});
+  final int initialIndex;
+
+  const MyPurchases({super.key, this.initialIndex = 0});
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 6,
+      initialIndex: initialIndex,
       child: Scaffold(
         appBar: AppBar(
           title: const Text(

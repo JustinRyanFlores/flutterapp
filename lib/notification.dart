@@ -15,6 +15,7 @@ class notification extends StatelessWidget {
         length: 2, // Number of tabs
         child: Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: Text(
               'NOTIFICATIONS',
               style: TextStyle(

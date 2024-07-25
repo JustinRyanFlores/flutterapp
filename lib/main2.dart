@@ -7,26 +7,24 @@ import 'message.dart';
 import 'notification.dart';
 import 'profile.dart';
 
-void main() => runApp(const MyApp());
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: MyHomePage2(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class MyHomePage2 extends StatefulWidget {
+  const MyHomePage2({Key? key}) : super(key: key);
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePage2State createState() => _MyHomePage2State();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePage2State extends State<MyHomePage2> {
   int _currentIndex = 0;
   bool isLoading = true;
 
@@ -69,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Hometab(),
         MessageTab(),
         NotificationTab(),
-        ProfileTab(),
+        ProfileTab2(),
         CartPage(),
       ],
     );
@@ -148,7 +146,7 @@ class NotificationTab extends StatelessWidget {
 class ProfileTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Center(
         child: ProfileNoAccount(),
       ),
@@ -159,7 +157,7 @@ class ProfileTab extends StatelessWidget {
 class ProfileTab2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Center(
         child: Profile(),
       ),
