@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:test_dev/pages/cart.dart';
 import 'message.dart';
 
 class notification extends StatelessWidget {
@@ -30,11 +31,12 @@ class notification extends StatelessWidget {
             ),
             actions: [
               IconButton(
-                icon: const Icon(
-                  Icons.shopping_cart_outlined,
-                  color: Color.fromRGBO(207, 178, 135, 1),
+                icon: const Icon(Icons.shopping_cart_outlined,
+                    color: Color.fromRGBO(207, 178, 135, 1)),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Cart()),
                 ),
-                onPressed: () => {},
               ),
               IconButton(
                 icon: const Icon(
