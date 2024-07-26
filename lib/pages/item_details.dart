@@ -224,7 +224,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Store(storeName: '',)),
+                        MaterialPageRoute(builder: (context) => const ShopScreen(storeName: '',)),
                       );
                     },
                     child: const Text(

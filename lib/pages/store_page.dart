@@ -43,7 +43,7 @@ class ShopScreen extends StatelessWidget {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(
-              180.0), // Increased height to accommodate TabBar
+              180.0), 
           child: AppBar(
             iconTheme: IconThemeData(color: Colors.white),
             flexibleSpace: Column(
